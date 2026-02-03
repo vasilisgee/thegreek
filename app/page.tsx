@@ -616,7 +616,7 @@ export default function Home() {
 
           <footer className="border-t border-white/20 pt-6 max-w-3xl mx-auto">
             <p className="text-sm opacity-70 mb-10">
-              © {new Date().getFullYear()} TheGreek — React & Next.js Website Template — View project on <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>
+              © {new Date().getFullYear()} TheGreek — React & Next.js Website Template — View project on <a href="https://github.com/vasilisgee/thegreek" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>
             </p>
             <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="bg-white text-brand-primary px-5 py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-surface transition shadow-xl inline-flex items-center justify-center" >
               {isSV ? "Till Toppen" : "Back to Top"} <HiOutlineArrowUp className="ml-3" />

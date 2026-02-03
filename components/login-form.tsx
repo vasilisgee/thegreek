@@ -84,7 +84,7 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>         
+        © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/vasilisgee/thegreek" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>         
       </div>
     </div>
   )

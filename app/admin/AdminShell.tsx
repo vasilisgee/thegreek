@@ -193,7 +193,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         {/* Footer */}
         <footer className="border-t bg-background px-6 py-5 text-xs text-center text-muted-foreground">
           
-              © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>
+              © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/vasilisgee/thegreek" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>
        
         </footer>
         </div>
