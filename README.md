@@ -55,13 +55,13 @@ Create a `.env.local` file in the project root with:
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
-# comma-separated admin emails
+# admin emails whitelist
 NEXT_PUBLIC_ADMIN_EMAILS=admin@example.com,another@example.com
-# inactivity timeout (minutes)
+# user inactivity timeout (minutes)
 NEXT_PUBLIC_ADMIN_IDLE_MINUTES=15
 ```
 
-If you enable Google OAuth in Supabase, add the redirect URL:
+Enable Google OAuth in Supabase (add a Google provider with your Client ID and Secret), add the redirect URL:
 ```text
 http://localhost:3000/auth/callback
 ```
@@ -74,3 +74,11 @@ http://localhost:3000/auth/callback
 ## User Types
 - **Admin** — full access to CMS data and saves
 - **Guest** — read-only access, inputs are empty and saving is blocked
+
+## Database Schema (Supabase)
+- `site_settings` — global website text, analytics, maps, hero media (single-row)
+- `media_assets` — hero media, PDFs, and shared assets (single-row)
+- `thumb_gallery` — about section lightbox images (multiple rows)
+- `slider_gallery` — events slider images + titles (multiple rows)
+- `admin_users` — admin profile data
+
