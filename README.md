@@ -6,7 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=0A0A0A)
 
-A restaurant one-page website template built with Next.js App Router and Supabase. It includes a one-page site plus a lightweight custom admin dashboard for managing content, media, and translations.
+A minimal one-page restaurant website template built with Next.js App Router and GSAP. It includes a lightweight custom admin dashboard for managing content, media, and translations.
 
 <a href="https://thegreek-flame.vercel.app" target="_blank">View it Live</a> • <a href="https://thegreek-flame.vercel.app/login" target="_blank">Admin Panel</a>
 
@@ -82,3 +82,5 @@ http://localhost:3000/auth/callback
 - `slider_gallery` — events slider images + titles (multiple rows)
 - `admin_users` — admin profile data
 
+## License / Usage
+Free for personal and educational use. Commercial use is not permitted without permission.
