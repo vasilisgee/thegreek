@@ -15,7 +15,6 @@ A restaurant one-page website template built with Next.js App Router and Supabas
 - Modern marketing site with hero media, galleries, and rich sections
 - CMS-style admin dashboard for website text, photos, media, and settings
 - Google OAuth login with an email whitelist
-- Guest mode (read-only navigation)
 - Multi-language content support
 - Supabase storage integration for media uploads
 - GSAP-powered animations and a custom visual theme
