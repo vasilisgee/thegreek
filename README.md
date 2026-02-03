@@ -1,12 +1,15 @@
 # TheGreek — Restaurant Website + Admin
 
-A restaurant website template built with Next.js App Router and Supabase. It includes a one-page site plus a lightweight custom admin dashboard for managing content, media, and translations.
-
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=0A0A0A)
+
+A restaurant one-page website template built with Next.js App Router and Supabase. It includes a one-page site plus a lightweight custom admin dashboard for managing content, media, and translations.
+
+<a href="https://thegreek-flame.vercel.app" target="_blank">View it Live</a> • <a href="https://thegreek-flame.vercel.app/login" target="_blank">Admin Panel</a>
+
 
 ## Highlights
 - Modern marketing site with hero media, galleries, and rich sections
