@@ -74,14 +74,3 @@ http://localhost:3000/auth/callback
 ## User Types
 - **Admin** — full access to CMS data and saves
 - **Guest** — read-only access, inputs are empty and saving is blocked
-
-## Scripts
-```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
-```
-
-## Notes
-For production, add proper server-side access checks and hardened RLS policies in Supabase.
