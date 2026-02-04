@@ -6,7 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=0A0A0A)
 
-A minimal one-page restaurant website template built with Next.js App Router and GSAP. It includes a lightweight custom admin dashboard for managing content, media, and translations.
+A modern one-page restaurant website template built with **Next.js App Router** and **GSAP**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, and translations.
 
 <a href="https://thegreek-flame.vercel.app" target="_blank">View it Live</a> • <a href="https://thegreek-flame.vercel.app/login" target="_blank">Admin Panel</a>
 
@@ -20,11 +20,11 @@ A minimal one-page restaurant website template built with Next.js App Router and
 - GSAP-powered animations and a custom visual theme
 
 ## Tech Stack
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS + shadcn/ui
-- GSAP (frontend animations)
-- Supabase (Auth, Database, Storage)
+- **Next.js** (App Router)
+- **TypeScript**
+- **Tailwind CSS** + shadcn/ui
+- **GSAP** (frontend animations)
+- **Supabase** (Auth, Database, Storage)
 
 ## Project Structure
 - `app/` — public website routes
@@ -41,39 +41,37 @@ A minimal one-page restaurant website template built with Next.js App Router and
    ```bash
    npm install
    ```
-2. Create `.env.local` (see next section)
+2. Create `.env.local`
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   
+   # admin emails whitelist
+   NEXT_PUBLIC_ADMIN_EMAILS=admin@example.com,another@example.com
+   # user inactivity timeout (minutes)
+   NEXT_PUBLIC_ADMIN_IDLE_MINUTES=15
+   ```
 3. Run the dev server
    ```bash
    npm run dev
    ```
 4. Open `http://localhost:3000`
 
-## Environment Variables
-Create a `.env.local` file in the project root with:
+## Authentication & Access
 
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-
-# admin emails whitelist
-NEXT_PUBLIC_ADMIN_EMAILS=admin@example.com,another@example.com
-# user inactivity timeout (minutes)
-NEXT_PUBLIC_ADMIN_IDLE_MINUTES=15
-```
-
-Enable Google OAuth in Supabase (add a Google provider with your Client ID and Secret), add the redirect URL:
+- Google OAuth via Supabase
+- Only emails listed in `NEXT_PUBLIC_ADMIN_EMAILS` can access /admin
+- Automatic logout after inactivity
+- Guest mode allows navigation but blocks saving and hides data
+  
+OAuth redirect URL:
 ```text
 http://localhost:3000/auth/callback
 ```
 
-## Admin Access
-- Login via Google OAuth
-- Only emails listed in `NEXT_PUBLIC_ADMIN_EMAILS` can access `/admin`
-- Guest mode is read-only and blocks saving changes
-
-## User Types
-- **Admin** — full access to CMS data and saves
-- **Guest** — read-only access, inputs are empty and saving is blocked
+## User Roles
+- **Admin** — full CMS access (edit & save)
+- **Guest** — read-only access, empty inputs, save actions disabled
 
 ## Database Schema (Supabase)
 - `site_settings` — global website text, analytics, maps, hero media (single-row)
