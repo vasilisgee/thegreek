@@ -72,7 +72,7 @@ export default function AdminDashboardPage() {
       setUpdates({
         texts: texts.data?.updated_at ?? null,
         media: media.data?.updated_at ?? null,
-        menu: media.data?.updated_at ?? null, // menu PDFs live in media_assets
+        menu: media.data?.updated_at ?? null,
         basics: basics.data?.updated_at ?? null,
       });
 

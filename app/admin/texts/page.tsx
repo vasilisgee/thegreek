@@ -63,8 +63,22 @@ export default function AdminTextsPage() {
                   className="w-full"
                 >
                   <TabsList className="mb-4">
-                    <TabsTrigger value="en">English</TabsTrigger>
-                    <TabsTrigger value="sv">Swedish</TabsTrigger>
+                    <TabsTrigger value="en" className="gap-2">
+                      <span
+                        aria-hidden="true"
+                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                        style={{ backgroundImage: "url('/flags/england.svg')" }}
+                      />
+                      English
+                    </TabsTrigger>
+                    <TabsTrigger value="sv" className="gap-2">
+                      <span
+                        aria-hidden="true"
+                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                        style={{ backgroundImage: "url('/flags/sweden.svg')" }}
+                      />
+                      Swedish
+                    </TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="en">

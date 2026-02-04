@@ -271,10 +271,22 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1">
+                      <TabsTrigger value="en" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{
+                            backgroundImage: "url('/flags/england.svg')",
+                          }}
+                        />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1">
+                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{ backgroundImage: "url('/flags/sweden.svg')" }}
+                        />
                         Swedish
                       </TabsTrigger>
                     </TabsList>
@@ -324,10 +336,22 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1">
+                      <TabsTrigger value="en" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{
+                            backgroundImage: "url('/flags/england.svg')",
+                          }}
+                        />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1">
+                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{ backgroundImage: "url('/flags/sweden.svg')" }}
+                        />
                         Swedish
                       </TabsTrigger>
                     </TabsList>
@@ -377,10 +401,22 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1">
+                      <TabsTrigger value="en" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{
+                            backgroundImage: "url('/flags/england.svg')",
+                          }}
+                        />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1">
+                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{ backgroundImage: "url('/flags/sweden.svg')" }}
+                        />
                         Swedish
                       </TabsTrigger>
                     </TabsList>
@@ -430,10 +466,22 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1">
+                      <TabsTrigger value="en" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{
+                            backgroundImage: "url('/flags/england.svg')",
+                          }}
+                        />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1">
+                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                        <span
+                          aria-hidden="true"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          style={{ backgroundImage: "url('/flags/sweden.svg')" }}
+                        />
                         Swedish
                       </TabsTrigger>
                     </TabsList>

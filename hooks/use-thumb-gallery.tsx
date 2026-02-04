@@ -150,6 +150,7 @@ export function useThumbGallery() {
     const { error } = await supabase.from("media_assets").upsert({
       id: SETTINGS_ID,
       ...updates,
+      updated_at: new Date().toISOString(),
     });
 
     setLoading(false);

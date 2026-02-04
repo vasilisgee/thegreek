@@ -46,9 +46,11 @@ function LoginPageContent() {
         <ThemeToggle />
       </div>
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <strong className="font-extrabold w-auto mx-auto bg-brand-primary text-white px-2 py-1 rounded-lg text-lg">
-          theGreek
-        </strong>
+        <a href="/" className="inline-block m-auto">
+          <strong className="font-extrabold w-auto bg-brand-primary text-white px-2 py-2 rounded-lg text-lg">
+            theGreek
+          </strong>
+        </a>
         <LoginForm />
       </div>
     </div>

@@ -164,6 +164,7 @@ export function useWebsiteBasics() {
       id: SETTINGS_ID,
       ...websiteBasics,
       meta_image: metaImageUrl,
+      updated_at: new Date().toISOString(),
     });
 
     setLoading(false);

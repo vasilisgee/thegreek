@@ -163,6 +163,7 @@ export function useWebsiteTexts() {
 
     const payload = {
       id: SETTINGS_ID,
+      updated_at: new Date().toISOString(),
 
       hero_title_en: texts.en.hero_title,
       hero_subtitle_en: texts.en.hero_subtitle,
