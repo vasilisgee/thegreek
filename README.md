@@ -8,7 +8,7 @@
 
 A modern one-page restaurant website template built with **Next.js App Router** and **GSAP**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, and translations.
 
-<a href="https://thegreek.vercel.app" target="_blank">View it Live</a> • <a href="https://thegreek.vercel.app/login" target="_blank">Admin Panel</a>
+[View it Live](https://thegreekrestaurant.vercel.app/) • [Admin Panel](https://thegreekrestaurant.vercel.app/login)
 
 
 ## Highlights
