@@ -26,16 +26,6 @@ A minimal one-page restaurant website template built with **React**, **Next.js A
 - **GSAP** (frontend animations)
 - **Supabase** (Auth, Database, Storage)
 
-## Project Structure
-- `app/` — public website routes
-- `app/admin/` — CMS UI (pages + layout)
-- `app/auth/` — OAuth callback handling
-- `components/admin/` — admin UI components
-- `hooks/` — CMS data hooks
-- `lib/auth/` — auth helpers, session sync, guest mode
-- `lib/animations/` — GSAP animation setup
-- `lib/supabase/` — Supabase client
-
 ## Local Setup
 1. Install dependencies
    ```bash
