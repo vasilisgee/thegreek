@@ -64,7 +64,7 @@ http://localhost:3000/auth/callback
 - **Admin** — full CMS access (edit & save)
 - **Guest** — read-only access, empty inputs, save actions disabled
 
-## Database Schema (Supabase)
+## Database Schema 
 - `site_settings` — global website text, analytics, maps, hero media (single-row)
 - `media_assets` — hero media, PDFs, and shared assets (single-row)
 - `thumb_gallery` — about section lightbox images (multiple rows)
