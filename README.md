@@ -12,8 +12,8 @@ A minimal one-page restaurant website template built with **React**, **Next.js A
 
 
 ## Highlights
-- Modern marketing site with hero media, galleries, and rich sections
-- CMS-style admin dashboard for website text, photos, media, and settings
+- Modern marketing site for small businesses with hero media, galleries and contact information
+- CMS-style admin dashboard for frontend text, photos, media, and appearance settings
 - Google OAuth login with an email whitelist
 - Multi-language content support
 - Supabase storage integration for media uploads
