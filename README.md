@@ -22,8 +22,9 @@ A minimal one-page restaurant website template built with **React**, **Next.js A
 ## Tech Stack
 - **Next.js** (App Router)
 - **TypeScript**
-- **Tailwind CSS** + shadcn/ui
-- **GSAP** (frontend animations)
+- **Tailwind CSS**
+- **shadcn/ui**
+- **GSAP**
 - **Supabase** (Auth, Database, Storage)
 
 ## Local Setup
