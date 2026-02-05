@@ -7,6 +7,7 @@ import { FiFileText } from "react-icons/fi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { MdOutlineSettingsInputComponent } from "react-icons/md";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+import { LuPaintbrushVertical } from "react-icons/lu";
 
 type Props = {
   host: string;
@@ -64,6 +65,14 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               onNavigate={onNavigate}
             >
               General Settings
+            </NavItem>
+
+            <NavItem
+              href="/admin/appearance"
+              icon={<LuPaintbrushVertical />}
+              onNavigate={onNavigate}
+            >
+              Appearance
             </NavItem>
           </div>
         </div>

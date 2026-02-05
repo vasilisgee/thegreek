@@ -30,6 +30,10 @@ const PAGE_META: Record<string, { title: string; description?: string }> = {
     title: "Dashboard",
     description: "",
   },
+  "/admin/appearance": {
+    title: "Appearance",
+    description: "Customize the website look and feel, colors, and layout.",
+  },
   "/admin/general": {
     title: "General Settings",
     description: "Global website settings and business information.",

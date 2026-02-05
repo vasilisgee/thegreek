@@ -7,14 +7,25 @@ import Lenis from "@studio-freight/lenis";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-export function scrollToTop() {
+export function scrollToTop(disableMotion = false) {
+  if (disableMotion) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
   gsap.to(window, {
     scrollTo: { y: 0 },
     duration: 1,
     ease: "power5.out",
   });
 }
-export function scrollToSection(target: string) {
+export function scrollToSection(target: string, disableMotion = false) {
+  if (disableMotion) {
+    const el = document.querySelector<HTMLElement>(target);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 30;
+    window.scrollTo({ top, behavior: "smooth" });
+    return;
+  }
   gsap.to(window, {
     scrollTo: {
       y: target,
@@ -26,7 +37,73 @@ export function scrollToSection(target: string) {
   });
 }
 
-export function initHomeAnimations() {
+function initSlider(useGsap: boolean) {
+  const slides = Array.from(document.querySelectorAll<HTMLElement>(".slide"));
+  if (!slides.length) return () => {};
+
+  let currentSlide = 0;
+
+  slides.forEach((slide, index) => {
+    const isActive = index === 0;
+    if (useGsap) {
+      gsap.set(slide, { opacity: isActive ? 1 : 0, pointerEvents: isActive ? "auto" : "none" });
+    } else {
+      slide.style.transition = "opacity 0.8s ease";
+      slide.style.willChange = "opacity";
+      slide.style.opacity = isActive ? "1" : "0";
+      slide.style.pointerEvents = isActive ? "auto" : "none";
+    }
+  });
+
+  function showSlide(index: number) {
+    if (index === currentSlide) return;
+    if (useGsap) {
+      gsap.to(slides[currentSlide], {
+        opacity: 0,
+        duration: 0.8,
+        pointerEvents: "none",
+      });
+      gsap.to(slides[index], {
+        opacity: 1,
+        duration: 0.8,
+        pointerEvents: "auto",
+      });
+    } else {
+      slides[currentSlide].style.opacity = "0";
+      slides[currentSlide].style.pointerEvents = "none";
+      slides[index].style.opacity = "1";
+      slides[index].style.pointerEvents = "auto";
+    }
+    currentSlide = index;
+  }
+
+  const handleNext = () => {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  };
+  const handlePrev = () => {
+    const prev = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prev);
+  };
+
+  const nextButton = document.querySelector(".slider-next");
+  const prevButton = document.querySelector(".slider-prev");
+  nextButton?.addEventListener("click", handleNext);
+  prevButton?.addEventListener("click", handlePrev);
+
+  return () => {
+    nextButton?.removeEventListener("click", handleNext);
+    prevButton?.removeEventListener("click", handlePrev);
+  };
+}
+
+export function initHomeAnimations(disableMotion = false) {
+  const sliderCleanup = initSlider(!disableMotion);
+  if (disableMotion) {
+    return () => {
+      sliderCleanup();
+    };
+  }
   const existingTriggers = new Set(ScrollTrigger.getAll());
   const mm = gsap.matchMedia();
 
@@ -196,41 +273,6 @@ export function initHomeAnimations() {
     },
   );
 
-  // GALLERY Slideshow
-  const slides = gsap.utils.toArray<HTMLElement>(".slide");
-  let currentSlide = 0;
-
-  // show first slide
-  gsap.set(slides[0], { opacity: 1, pointerEvents: "auto" });
-
-  function showSlide(index: number) {
-    gsap.to(slides[currentSlide], {
-      opacity: 0,
-      duration: 0.8,
-      pointerEvents: "none",
-    });
-    gsap.to(slides[index], {
-      opacity: 1,
-      duration: 0.8,
-      pointerEvents: "auto",
-    });
-    currentSlide = index;
-  }
-
-  const handleNext = () => {
-    const next = (currentSlide + 1) % slides.length;
-    showSlide(next);
-  };
-  const handlePrev = () => {
-    const prev = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(prev);
-  };
-
-  const nextButton = document.querySelector(".slider-next");
-  const prevButton = document.querySelector(".slider-prev");
-  nextButton?.addEventListener("click", handleNext);
-  prevButton?.addEventListener("click", handlePrev);
-
   // CONTACT section
   gsap
     .timeline({
@@ -359,8 +401,7 @@ export function initHomeAnimations() {
   });
 
   return () => {
-    nextButton?.removeEventListener("click", handleNext);
-    prevButton?.removeEventListener("click", handlePrev);
+    sliderCleanup();
     ScrollTrigger.removeEventListener("refresh", onRefresh);
     gsap.ticker.remove(raf);
     lenis.off("scroll", onScroll);
