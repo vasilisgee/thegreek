@@ -8,10 +8,10 @@ import {
   RiFileTextLine,
   RiBarChart2Line,
 } from "react-icons/ri";
-import { MdRestaurantMenu } from "react-icons/md";
 import { HiOutlineDocumentText } from "react-icons/hi2";
 import { TbPhotoEdit } from "react-icons/tb";
 import { LuTextSearch } from "react-icons/lu";
+import { BiPaint } from "react-icons/bi";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { supabase } from "@/lib/supabase/client";
@@ -19,18 +19,23 @@ import { formatShortDate } from "@/lib/format-date";
 import { useEffect, useState } from "react";
 import { useAdminSession } from "@/lib/auth/use-admin-session";
 
+const WELCOME_EMOJIS = [
+  { code: "1f44b", label: "Waving hand" },
+  { code: "1f680", label: "Rocket" },
+];
+
 type DashboardUpdates = {
   texts: string | null;
   media: string | null;
-  menu: string | null;
   basics: string | null;
+  theme: string | null;
 };
 
 const EMPTY: DashboardUpdates = {
   texts: null,
   media: null,
-  menu: null,
   basics: null,
+  theme: null,
 };
 
 export default function AdminDashboardPage() {
@@ -40,6 +45,9 @@ export default function AdminDashboardPage() {
     : profile?.first_name || "Admin";
   const [isLoading, setIsLoading] = useState(true);
   const [updates, setUpdates] = useState<DashboardUpdates>(EMPTY);
+  const [welcomeEmoji] = useState(
+    () => WELCOME_EMOJIS[Math.floor(Math.random() * WELCOME_EMOJIS.length)]
+  );
 
   useEffect(() => {
     async function loadUpdates() {
@@ -72,8 +80,8 @@ export default function AdminDashboardPage() {
       setUpdates({
         texts: texts.data?.updated_at ?? null,
         media: media.data?.updated_at ?? null,
-        menu: media.data?.updated_at ?? null,
         basics: basics.data?.updated_at ?? null,
+        theme: null,
       });
 
       setIsLoading(false);
@@ -87,8 +95,19 @@ export default function AdminDashboardPage() {
       <div className="w-full max-w-5xl text-center space-y-10 mt-10 md:mt-0 mb-10 md:mb-0 md:-translate-y-[60px] ">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="text-3xl font-bold tracking-tight flex items-center justify-center gap-2">
             Welcome {username}
+            <picture className="inline-flex">
+              <source
+                srcSet={`https://fonts.gstatic.com/s/e/notoemoji/latest/${welcomeEmoji.code}/512.webp`}
+                type="image/webp"
+              />
+              <img
+                src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${welcomeEmoji.code}/512.gif`}
+                alt={`${welcomeEmoji.label} emoji`}
+                className="h-7 w-7"
+              />
+            </picture>
           </h1>
           <p className="text-muted-foreground text-md">
             What do you want to do today?
@@ -124,28 +143,6 @@ export default function AdminDashboardPage() {
           <a href="/admin/photos">
             <Card className="group h-full hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
-                <CardTitle className="text-lg">Upload Menu</CardTitle>
-              </CardHeader>
-
-              <CardContent className="flex flex-col items-center gap-4">
-                <MdRestaurantMenu className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
-
-                <Separator />
-                {isLoading ? (
-                  <Skeleton className="h-6 w-40 rounded-full" />
-                ) : (
-                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
-                    Updated · {formatShortDate(updates.menu)}
-                  </span>
-                )}
-              </CardContent>
-            </Card>
-          </a>
-
-          {/* Card 3 */}
-          <a href="/admin/photos">
-            <Card className="group h-full hover:shadow-lg transition cursor-pointer">
-              <CardHeader className="text-center pb-3">
                 <CardTitle className="text-lg">Edit Photos</CardTitle>
               </CardHeader>
 
@@ -164,7 +161,7 @@ export default function AdminDashboardPage() {
             </Card>
           </a>
 
-          {/* Card 4 */}
+          {/* Card 3 */}
           <a href="/admin/general">
             <Card className="h-full group hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
@@ -180,6 +177,28 @@ export default function AdminDashboardPage() {
                 ) : (
                   <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
                     Updated · {formatShortDate(updates.basics)}
+                  </span>
+                )}
+              </CardContent>
+            </Card>
+          </a>
+
+          {/* Card 4 */}
+          <a href="/admin/appearance">
+            <Card className="group h-full hover:shadow-lg transition cursor-pointer">
+              <CardHeader className="text-center pb-3">
+                <CardTitle className="text-lg">Edit Appearence</CardTitle>
+              </CardHeader>
+
+              <CardContent className="flex flex-col items-center gap-4">
+                <BiPaint className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
+
+                <Separator />
+                {isLoading ? (
+                  <Skeleton className="h-6 w-40 rounded-full" />
+                ) : (
+                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                    Updated · {formatShortDate(updates.texts)}
                   </span>
                 )}
               </CardContent>

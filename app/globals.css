@@ -113,6 +113,7 @@
   animation: scale-in 0.3s ease-out forwards;
 }
 
+
 .map-frame div,
 .map-frame iframe {
   width: 100% !important;
@@ -123,6 +124,4 @@
 .moving-text p strong{
   display:inline-block
 }
-
-
 
