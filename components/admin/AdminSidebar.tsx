@@ -48,7 +48,7 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               icon={<FiFileText />}
               onNavigate={onNavigate}
             >
-              Website Texts
+              Texts
             </NavItem>
 
             <NavItem
@@ -56,7 +56,7 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               icon={<MdOutlinePhotoSizeSelectActual />}
               onNavigate={onNavigate}
             >
-              Photos & Media
+              Media
             </NavItem>
 
             <NavItem
@@ -64,7 +64,7 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               icon={<MdOutlineSettingsInputComponent />}
               onNavigate={onNavigate}
             >
-              General Settings
+              General
             </NavItem>
 
             <NavItem

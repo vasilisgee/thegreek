@@ -55,6 +55,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const { status, profile, isGuest, isAuthenticated } = useAdminSession();
 
   const [host, setHost] = useState("—");
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
     setHost(window.location.host);
@@ -70,6 +71,9 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   }, [status, router]);
 
   useIdleLogout(isAuthenticated || isGuest);
+  useEffect(() => {
+    setIsSheetOpen(false);
+  }, [pathname]);
 
   async function handleLogout() {
     await signOutAdmin();
@@ -125,7 +129,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
               </div>
 
               {/* MOBILE MENU */}
-              <Sheet>
+              <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <SheetTrigger asChild>
                   <Button
                     variant="ghost"
@@ -142,7 +146,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
                     <SheetTitle>Admin navigation</SheetTitle>
                   </VisuallyHidden>
 
-                  <AdminSidebar host={host} />
+                  <AdminSidebar host={host} onNavigate={() => setIsSheetOpen(false)} />
                   {/* USER FOOTER */}
                   <div className="border-t border-border p-4 pt-5 space-y-3">
                     {/* USER INFO */}
