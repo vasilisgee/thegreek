@@ -1,4 +1,4 @@
-# theGreek — Restaurant Website & CMS
+# theGreek — GSAP One-Page Site + Admin Panel
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
@@ -6,7 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=0A0A0A)
 
-A modern one-page restaurant website template built with **Next.js App Router** and **GSAP**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, and translations.
+A minimal one-page restaurant website template built with **React**, **Next.js App Router** and **GSAP**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, translations and appearance.
 
 [View it Live](https://thegreekrestaurant.vercel.app/) • [Admin Panel](https://thegreekrestaurant.vercel.app/login)
 
@@ -17,7 +17,7 @@ A modern one-page restaurant website template built with **Next.js App Router** 
 - Google OAuth login with an email whitelist
 - Multi-language content support
 - Supabase storage integration for media uploads
-- GSAP-powered animations and a custom visual theme
+- GSAP-powered animations and a customizable theme
 
 ## Tech Stack
 - **Next.js** (App Router)
@@ -31,7 +31,7 @@ A modern one-page restaurant website template built with **Next.js App Router** 
 - `app/admin/` — CMS UI (pages + layout)
 - `app/auth/` — OAuth callback handling
 - `components/admin/` — admin UI components
-- `hooks/` — CMS data hooks (business info, media, galleries, texts)
+- `hooks/` — CMS data hooks
 - `lib/auth/` — auth helpers, session sync, guest mode
 - `lib/animations/` — GSAP animation setup
 - `lib/supabase/` — Supabase client
