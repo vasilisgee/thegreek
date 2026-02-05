@@ -42,6 +42,8 @@ function initSlider(useGsap: boolean) {
   if (!slides.length) return () => {};
 
   let currentSlide = 0;
+  const autoplayDelayMs = 4000;
+  let autoplayId: number | null = null;
 
   slides.forEach((slide, index) => {
     const isActive = index === 0;
@@ -54,6 +56,21 @@ function initSlider(useGsap: boolean) {
       slide.style.pointerEvents = isActive ? "auto" : "none";
     }
   });
+
+  const animateSlideImage = (slide: HTMLElement) => {
+    if (!useGsap) return;
+    const img = slide.querySelector<HTMLElement>("img");
+    if (!img) return;
+    gsap.killTweensOf(img);
+    gsap.set(img, { scale: 1.08, x: 0, y: 0, transformOrigin: "50% 50%" });
+    gsap.to(img, {
+      scale: 1,
+      x: gsap.utils.random(-10, 10),
+      y: gsap.utils.random(-6, 6),
+      duration: 6,
+      ease: "power1.out",
+    });
+  };
 
   function showSlide(index: number) {
     if (index === currentSlide) return;
@@ -75,6 +92,7 @@ function initSlider(useGsap: boolean) {
       slides[index].style.pointerEvents = "auto";
     }
     currentSlide = index;
+    animateSlideImage(slides[currentSlide]);
   }
 
   const handleNext = () => {
@@ -86,14 +104,41 @@ function initSlider(useGsap: boolean) {
     showSlide(prev);
   };
 
+  const stopAutoplay = () => {
+    if (autoplayId !== null) {
+      window.clearInterval(autoplayId);
+      autoplayId = null;
+    }
+  };
+
+  const startAutoplay = () => {
+    if (slides.length < 2) return;
+    stopAutoplay();
+    autoplayId = window.setInterval(handleNext, autoplayDelayMs);
+  };
+
   const nextButton = document.querySelector(".slider-next");
   const prevButton = document.querySelector(".slider-prev");
   nextButton?.addEventListener("click", handleNext);
   prevButton?.addEventListener("click", handlePrev);
 
+  const slider = document.querySelector(".slider");
+  slider?.addEventListener("mouseenter", stopAutoplay);
+  slider?.addEventListener("mouseleave", startAutoplay);
+  slider?.addEventListener("focusin", stopAutoplay);
+  slider?.addEventListener("focusout", startAutoplay);
+
+  animateSlideImage(slides[currentSlide]);
+  startAutoplay();
+
   return () => {
+    stopAutoplay();
     nextButton?.removeEventListener("click", handleNext);
     prevButton?.removeEventListener("click", handlePrev);
+    slider?.removeEventListener("mouseenter", stopAutoplay);
+    slider?.removeEventListener("mouseleave", startAutoplay);
+    slider?.removeEventListener("focusin", stopAutoplay);
+    slider?.removeEventListener("focusout", startAutoplay);
   };
 }
 

@@ -323,8 +323,8 @@ export default function Home() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="80"
-            height="80"
+            width="50"
+            height="50"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -488,7 +488,7 @@ export default function Home() {
 
               {hasMenuPdf && (
                 <a
-                  className=" inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-brand-primary font-semibold tracking-wide hover:bg-surface transition"
+                  className="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-brand-primary font-semibold tracking-wide hover:bg-surface transition"
                   href={menuPdfHref}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -514,11 +514,11 @@ export default function Home() {
               className=" inline-flex slider-about items-center justify-center px-8 py-3 rounded-full bg-brand-primary text-white font-semibold tracking-wide hover:bg-brand-primaryHover transition"
             >
               {t("gallery_button_text")}{" "}
-              <SiFacebook className="ml-3 text-lg" />{" "}
+              {/* <SiFacebook className="ml-3 text-lg" />{" "} */}
             </a>
           </div>
 
-          <div className="slider relative w-full h-full  min-h-[300px]">
+          <div className="slider relative w-full h-full  min-h-[300px] overflow-hidden">
             {/* Slides */}
             {sliderSlides.map((slide, i) => (
               <div
@@ -530,7 +530,7 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
                 {(slide.titleEn || slide.titleSv) && (
-                  <h2 className="absolute bottom-12 left-12 text-white text-2xl font-normal hidden md:block">
+                  <h2 className="absolute bottom-12 right-12 text-white text-lg font-light hidden md:block bg-black/30 px-4 py-2 rounded-full backdrop-blur-sm">
                     {isSV
                       ? slide.titleSv || slide.titleEn
                       : slide.titleEn || slide.titleSv}
@@ -612,7 +612,7 @@ export default function Home() {
                 <>
                   <div className="w-full h-px bg-white/10 my-6"></div>
 
-                  <h3 className="text-2xl md:text-3xl font-light mb-6 tracking-tight">
+                  <h3 className="text-center md:text-left text-2xl md:text-3xl font-light mb-6 tracking-tight">
                     {isSV ? "Beställ Online" : "Order Online"}
                   </h3>
 
@@ -691,7 +691,7 @@ export default function Home() {
                   href={`${businessInfo.instagram}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Facebook"
+                  aria-label="Instagram"
                   className=" p-4 flex items-center justify-center rounded-full bg-white text-brand-primary hover:scale-105 transition "
                 >
                   <SiInstagram className="text-2xl md:text-3xl" />
@@ -703,7 +703,7 @@ export default function Home() {
                   href={`${businessInfo.tiktok}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Facebook"
+                  aria-label="TikTok"
                   className=" p-4 flex items-center justify-center rounded-full bg-white text-brand-primary hover:scale-105 transition "
                 >
                   <SiTiktok className="text-2xl md:text-3xl" />

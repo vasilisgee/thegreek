@@ -121,7 +121,8 @@
   border: 0;
 }
 
-.moving-text p strong{
+.moving-text p strong,
+.hero-content h1 strong{
   display:inline-block
 }
 

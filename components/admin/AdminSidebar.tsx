@@ -19,9 +19,11 @@ export function AdminSidebar({ host, onNavigate }: Props) {
     <div className="flex h-auto w-full md:h-full flex-col bg-sidebar">
       {/* BRAND */}
       <div className="h-16 flex items-center px-6 border-b border-border">
-        <strong className="font-extrabold bg-brand-primary text-white px-2 py-1 rounded-lg text-lg">
-          theGreek
-        </strong>
+        <a href="/" target="_blank">
+          <strong className="font-extrabold bg-brand-primary text-white px-2 py-1 rounded-lg text-lg">
+            theGreek
+          </strong>
+        </a>
         <span className="ml-2 text-sm font-semibold text-muted-foreground">
           Admin
         </span>

@@ -38,7 +38,7 @@ export default function FileCard({
   accept = "application/pdf",
   allowedMimeTypes = ["application/pdf"],
   allowedExtensions = [".pdf"],
-  uploadLabel = "Upload PDF",
+  uploadLabel = "Upload File",
   invalidMessage = "Only PDF files are allowed.",
 }: FileCardProps) {
   const fileName = file?.name ?? value?.split("/").pop() ?? null;
@@ -108,8 +108,8 @@ export default function FileCard({
             </Button>
           </div>
         ) : (
-          <label className="flex items-center gap-1 cursor-pointer text-muted-foreground text-xs">
-            <TbFileUpload className="h-7 w-7" />
+          <label className="flex items-center gap-1 cursor-pointer text-muted-foreground text-xs font-semibold">
+            <TbFileUpload className="h-6 w-6" />
             {uploadLabel}
             <input
               type="file"

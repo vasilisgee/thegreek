@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TbPhotoPlus } from "react-icons/tb";
+import { RiUploadCloud2Line } from "react-icons/ri";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type ImageCardProps = {
@@ -110,8 +110,8 @@ export default function ImageCard({
             </Button>
           </>
         ) : (
-          <label className="flex flex-col items-center gap-2 cursor-pointer text-muted-foreground text-xs">
-            <TbPhotoPlus className="h-7 w-7" />
+          <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground font-semibold text-xs">
+            <RiUploadCloud2Line  className="h-7 w-7" />
             Upload Image
             <input
               type="file"

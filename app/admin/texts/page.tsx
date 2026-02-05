@@ -235,13 +235,13 @@ function ContentGrid({
           onChange={(v) => onChange("about_title", v, lang)}
         />
         <LabeledInput
-          label="Second title"
+          label="Card title"
           placeholder={placeholders.aboutSubtitle}
           value={values.about_subtitle}
           onChange={(v) => onChange("about_subtitle", v, lang)}
         />
         <LabeledTextarea
-          label="Main description"
+          label="Main text"
           placeholder={placeholders.aboutText}
           value={values.about_text}
           onChange={(v) => onChange("about_text", v, lang)}

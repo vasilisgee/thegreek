@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -21,7 +22,7 @@ import { useAdminSession } from "@/lib/auth/use-admin-session";
 
 const WELCOME_EMOJIS = [
   { code: "1f44b", label: "Waving hand" },
-  { code: "1f680", label: "Rocket" },
+  { code: "1f680", label: "Rocket" }
 ];
 
 type DashboardUpdates = {
@@ -117,7 +118,7 @@ export default function AdminDashboardPage() {
         {/* Action cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {/* Card 1 */}
-          <a href="/admin/texts">
+          <Link href="/admin/texts" className="block">
             <Card className="h-full group hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
                 <CardTitle className="text-lg">Edit Texts</CardTitle>
@@ -137,10 +138,10 @@ export default function AdminDashboardPage() {
                 )}
               </CardContent>
             </Card>
-          </a>
+          </Link>
 
           {/* Card 2 */}
-          <a href="/admin/photos">
+          <Link href="/admin/photos" className="block">
             <Card className="group h-full hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
                 <CardTitle className="text-lg">Edit Photos</CardTitle>
@@ -159,10 +160,10 @@ export default function AdminDashboardPage() {
                 )}
               </CardContent>
             </Card>
-          </a>
+          </Link>
 
           {/* Card 3 */}
-          <a href="/admin/general">
+          <Link href="/admin/general" className="block">
             <Card className="h-full group hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
                 <CardTitle className="text-lg">Edit Basics & SEO</CardTitle>
@@ -181,10 +182,10 @@ export default function AdminDashboardPage() {
                 )}
               </CardContent>
             </Card>
-          </a>
+          </Link>
 
           {/* Card 4 */}
-          <a href="/admin/appearance">
+          <Link href="/admin/appearance" className="block">
             <Card className="group h-full hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
                 <CardTitle className="text-lg">Edit Appearence</CardTitle>
@@ -203,7 +204,7 @@ export default function AdminDashboardPage() {
                 )}
               </CardContent>
             </Card>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
