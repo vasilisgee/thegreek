@@ -41,7 +41,7 @@ export default function AdminTextsPage() {
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between pt-4 pb-4">
-            <CardTitle className="text-lg">Titles & Descriptions</CardTitle>
+            <CardTitle className="text-md">Titles & Descriptions</CardTitle>
 
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="group !mt-0">
@@ -87,20 +87,20 @@ export default function AdminTextsPage() {
                       values={texts.en}
                       onChange={updateField}
                       placeholders={{
-                        heroTitle: "Type your headline",
-                        heroSubtitle: "Type your supporting headline",
+                        heroTitle: "Type the English headline",
+                        heroSubtitle: "Type the English tagline",
                         heroButton: "e.g. 'Explore more'",
 
-                        galleryTitle: "Type your title",
+                        galleryTitle: "Type the English title",
                         galleryButton: "e.g. 'Check events'",
-                        galleryUrl: "Paste the button link",
+                        galleryUrl: "Enter the button URL",
 
-                        aboutTitle: "Type your title",
-                        aboutSubtitle: "Type your second title",
-                        aboutText: "Type your about us text...",
+                        aboutTitle: "Type the English title",
+                        aboutSubtitle: "Type the English card title",
+                        aboutText: "Type the English card text...",
 
-                        contactTitle: "Type your title",
-                        footerTitle: "Type your title",
+                        contactTitle: "Type the English title",
+                        footerTitle: "Type the English title",
                       }}
                     />
                   </TabsContent>
@@ -111,20 +111,20 @@ export default function AdminTextsPage() {
                       values={texts.sv}
                       onChange={updateField}
                       placeholders={{
-                        heroTitle: "Skriv din huvudrubrik",
-                        heroSubtitle: "Skriv en kompletterande underrubrik",
+                        heroTitle: "Skriv den svenska rubriken",
+                        heroSubtitle: "Skriv den svenska underrubriken",
                         heroButton: 't.ex. "Utforska mer"',
 
-                        galleryTitle: "Skriv rubriken",
+                        galleryTitle: "Skriv den svenska rubriken",
                         galleryButton: 't.ex. "Se evenemang"',
-                        galleryUrl: "Klistra in länk till knappen",
+                        galleryUrl: "Ange knapplänken",
 
-                        aboutTitle: "Skriv rubriken",
-                        aboutSubtitle: "Skriv underrubriken",
-                        aboutText: "Skriv din Om oss-text…",
+                        aboutTitle: "Skriv den svenska rubriken",
+                        aboutSubtitle: "Skriv den svenska korttiteln",
+                        aboutText: "Skriv den svenska korttexten...",
 
-                        contactTitle: "Skriv rubriken",
-                        footerTitle: "Skriv rubriken",
+                        contactTitle: "Skriv den svenska rubriken",
+                        footerTitle: "Skriv den svenska rubriken",
                       }}
                     />
                   </TabsContent>
@@ -181,7 +181,7 @@ function ContentGrid({
           onChange={(v) => onChange("hero_title", v, lang)}
         />
         <LabeledInput
-          label="Supporting headline"
+          label="Tagline"
           placeholder={placeholders.heroSubtitle}
           value={values.hero_subtitle}
           onChange={(v) => onChange("hero_subtitle", v, lang)}
@@ -241,7 +241,7 @@ function ContentGrid({
           onChange={(v) => onChange("about_subtitle", v, lang)}
         />
         <LabeledTextarea
-          label="Main text"
+          label="Card text"
           placeholder={placeholders.aboutText}
           value={values.about_text}
           onChange={(v) => onChange("about_text", v, lang)}
@@ -285,7 +285,7 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-start gap-3 mb-2">
-      <Icon className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+      <Icon className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
       <div>
         <h4 className="text-md font-medium">{title}</h4>
         <p className="text-xs text-muted-foreground">{description}</p>

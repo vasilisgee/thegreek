@@ -48,7 +48,7 @@ export default function AdminGeneralPage() {
           {/* ===== HEADER ===== */}
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
             <div>
-              <CardTitle className="text-lg">Business Information </CardTitle>
+              <CardTitle className="text-md">Business Information </CardTitle>
             </div>
 
             <CollapsibleTrigger asChild>
@@ -69,7 +69,7 @@ export default function AdminGeneralPage() {
                 <div className="space-y-5">
                   <div className="flex items-start gap-3 mb-2 align-center">
                     <div className="flex items-center justify-center">
-                      <TbBuildingStore className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                      <TbBuildingStore className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
                     <div>
                       <h4 className="text-md font-medium">
@@ -95,7 +95,7 @@ export default function AdminGeneralPage() {
                       <Input
                         value={businessInfo.address}
                         onChange={(e) => updateField("address", e.target.value)}
-                        placeholder="Your business address"
+                        placeholder="Business store address"
                       />
                     )}
                   </div>
@@ -113,7 +113,7 @@ export default function AdminGeneralPage() {
                       <Input
                         value={businessInfo.phone}
                         onChange={(e) => updateField("phone", e.target.value)}
-                        placeholder="Your business address"
+                        placeholder="Business phone number"
                       />
                     )}
                   </div>
@@ -133,7 +133,7 @@ export default function AdminGeneralPage() {
                         autoComplete="email"
                         value={businessInfo.email}
                         onChange={(e) => updateField("email", e.target.value)}
-                        placeholder="Your business email address"
+                        placeholder="Business email address"
                       />
                     )}
                   </div>
@@ -155,8 +155,8 @@ export default function AdminGeneralPage() {
                         onChange={(e) =>
                           updateField("opening_hours", e.target.value)
                         }
-                        placeholder="Your business opening hours"
-                        rows={6}
+                        placeholder="Business opening hours..."
+                        rows={5}
                       />
                     )}
                   </div>
@@ -168,7 +168,7 @@ export default function AdminGeneralPage() {
 
                   <div className="flex items-start gap-3 mb-2 align-center">
                     <div className="flex items-center justify-center">
-                      <FaInstagram className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                      <FaInstagram className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
                     <div>
                       <h4 className="text-md font-medium">Social Media</h4>
@@ -193,7 +193,7 @@ export default function AdminGeneralPage() {
                         onChange={(e) =>
                           updateField("facebook", e.target.value)
                         }
-                        placeholder="Facebook profile URL"
+                        placeholder="Business profile URL"
                       />
                     )}
                   </div>
@@ -213,7 +213,7 @@ export default function AdminGeneralPage() {
                         onChange={(e) =>
                           updateField("instagram", e.target.value)
                         }
-                        placeholder="Instagram profile URL"
+                        placeholder="Business profile URL"
                       />
                     )}
                   </div>
@@ -231,7 +231,7 @@ export default function AdminGeneralPage() {
                       <Input
                         value={businessInfo.tiktok}
                         onChange={(e) => updateField("tiktok", e.target.value)}
-                        placeholder="TikTok profile URL"
+                        placeholder="Business profile URL"
                       />
                     )}
                   </div>
@@ -242,7 +242,7 @@ export default function AdminGeneralPage() {
 
                   <div className="flex items-start gap-3 mb-2 align-center">
                     <div className="flex items-center justify-center">
-                      <HiOutlineEnvelope className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                      <HiOutlineEnvelope className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
                     <div>
                       <h4 className="text-md font-medium">Order Online</h4>
@@ -270,7 +270,7 @@ export default function AdminGeneralPage() {
                           onChange={(e) =>
                             updateField("order_pickup", e.target.value)
                           }
-                          placeholder="Your pickup order URL"
+                          placeholder="Enter the button URL"
                         />
                       )}
                     </div>
@@ -292,7 +292,7 @@ export default function AdminGeneralPage() {
                           onChange={(e) =>
                             updateField("order_delivery", e.target.value)
                           }
-                          placeholder="Your online delivery URL"
+                          placeholder="Enter the button URL"
                         />
                       )}
                     </div>
@@ -323,7 +323,7 @@ export default function AdminGeneralPage() {
           {/* ===== HEADER ===== */}
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
             <div>
-              <CardTitle className="text-lg">Website Basics</CardTitle>
+              <CardTitle className="text-md">SEO & Integrations</CardTitle>
             </div>
 
             <CollapsibleTrigger asChild>
@@ -365,7 +365,7 @@ export default function AdminGeneralPage() {
                       <Skeleton className="h-9 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                     ) : (
                       <Input
-                        placeholder="Type your website main title"
+                        placeholder=""
                         value={websiteBasics.site_title}
                         onChange={(e) =>
                           updateWebsiteField("site_title", e.target.value)
@@ -394,7 +394,7 @@ export default function AdminGeneralPage() {
                       <Skeleton className="h-24 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                     ) : (
                       <Textarea
-                        placeholder="Type your description..."
+                        placeholder=""
                         rows={3}
                         value={websiteBasics.site_description}
                         onChange={(e) =>
@@ -492,7 +492,7 @@ export default function AdminGeneralPage() {
                         spellCheck={false}
                         autoCorrect="off"
                         autoCapitalize="off"
-                        rows={9}
+                        rows={10}
                         value={websiteBasics.google_maps}
                         onChange={(e) =>
                           updateWebsiteField("google_maps", e.target.value)

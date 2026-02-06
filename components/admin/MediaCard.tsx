@@ -119,7 +119,7 @@ export default function MediaCard({
               </>
             ) : (
               <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground text-xs">
-                <TbVideoPlus className="h-9 w-9" />
+                <TbVideoPlus className="h-8 w-8" />
                 Upload Video (MP4 / WEBM)
                 <input
                   type="file"

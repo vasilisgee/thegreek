@@ -104,7 +104,7 @@ export default function AdminAppearancePage() {
   const SelectedLayoutIcon = selectedLayout.icon;
   const [fontFamily, setFontFamily] = useState(FONT_OPTIONS[0]);
   const [mainLanguage, setMainLanguage] = useState(LANGUAGE_OPTIONS[0].value);
-  const [secondaryLanguage, setSecondaryLanguage] = useState(LANGUAGE_OPTIONS[1].value);
+  const [secondaryLanguage, setSecondaryLanguage] = useState("sv");
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [brandColor, setBrandColor] = useState("#151a3f");
   const [backgroundColor, setBackgroundColor] = useState("#f5f3f0");
@@ -114,7 +114,9 @@ export default function AdminAppearancePage() {
   const selectedMainLanguage =
     LANGUAGE_OPTIONS.find((option) => option.value === mainLanguage) ?? LANGUAGE_OPTIONS[0];
   const selectedSecondaryLanguage =
-    LANGUAGE_OPTIONS.find((option) => option.value === secondaryLanguage) ?? LANGUAGE_OPTIONS[1];
+    LANGUAGE_OPTIONS.find((option) => option.value === secondaryLanguage) ??
+    LANGUAGE_OPTIONS.find((option) => option.value === "sv") ??
+    LANGUAGE_OPTIONS[1];
 
   function handleSave() {
     if (isGuest) {
@@ -150,7 +152,7 @@ export default function AdminAppearancePage() {
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between pt-4 pb-4">
-            <CardTitle className="text-lg">Website Appearance</CardTitle>
+            <CardTitle className="text-md">Website Appearance</CardTitle>
 
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="group !mt-0">
@@ -455,7 +457,7 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-start gap-3 mb-2">
-      <Icon className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+      <Icon className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
       <div>
         <h4 className="text-md font-medium">{title}</h4>
         <p className="text-xs text-muted-foreground">{description}</p>

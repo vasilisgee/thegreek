@@ -52,7 +52,7 @@ export default function AdminPhotosPage() {
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
-            <CardTitle className="text-lg">Hero & Menu</CardTitle>
+            <CardTitle className="text-md">Hero & Menu</CardTitle>
 
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="group !mt-0">
@@ -69,7 +69,7 @@ export default function AdminPhotosPage() {
                 {/* LEFT COLUMN */}
                 <div className="space-y-5">
                   <div className="flex items-start gap-3 mb-2">
-                    <RiLayoutTopLine className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                    <RiLayoutTopLine className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     <div>
                       <h4 className="text-md font-medium">Hero Background</h4>
                       <p className="text-xs text-muted-foreground">
@@ -98,7 +98,7 @@ export default function AdminPhotosPage() {
                 {/* RIGHT COLUMN */}
                 <div className="space-y-5">
                   <div className="flex items-start gap-3 mb-2">
-                    <LuUtensilsCrossed className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                    <LuUtensilsCrossed className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     <div>
                       <h4 className="text-md font-medium">Restaurant Menu</h4>
                       <p className="text-xs text-muted-foreground">
@@ -153,7 +153,7 @@ export default function AdminPhotosPage() {
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
-            <CardTitle className="text-lg">Restaurant Gallery</CardTitle>
+            <CardTitle className="text-md">Restaurant Gallery</CardTitle>
 
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="group !mt-0">
@@ -170,7 +170,7 @@ export default function AdminPhotosPage() {
                 {/* LEFT COLUMN */}
                 <div className="space-y-5">
                   <div className="flex items-start gap-3 mb-2">
-                    <RiGalleryView className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                    <RiGalleryView className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     <div>
                       <h4 className="text-md font-medium">Thumbnail Gallery</h4>
                       <p className="text-xs text-muted-foreground">
@@ -233,7 +233,7 @@ export default function AdminPhotosPage() {
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
-            <CardTitle className="text-lg">Events Gallery</CardTitle>
+            <CardTitle className="text-md">Events Gallery</CardTitle>
 
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="group !mt-0">
@@ -247,7 +247,7 @@ export default function AdminPhotosPage() {
           <CollapsibleContent>
             <CardContent className="space-y-8 mt-5">
               <div className="flex items-start gap-3 mb-2">
-                <TfiLayoutSlider className="text-muted-foreground border rounded-md w-9 h-9 p-2 mt-1" />
+                <TfiLayoutSlider className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                 <div>
                   <h4 className="text-md font-medium">Image Slider</h4>
                   <p className="text-xs text-muted-foreground">

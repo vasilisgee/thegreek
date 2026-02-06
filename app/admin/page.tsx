@@ -121,18 +121,18 @@ export default function AdminDashboardPage() {
           <Link href="/admin/texts" className="block">
             <Card className="h-full group hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
-                <CardTitle className="text-lg">Edit Texts</CardTitle>
+                <CardTitle className="text-md">Edit Texts</CardTitle>
               </CardHeader>
 
               <CardContent className="flex flex-col items-center gap-4">
-                <HiOutlineDocumentText className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
+                <HiOutlineDocumentText className="text-3xl text-muted-foreground transition-transform transition-colors group-hover:text-primary group-hover:scale-105" />
 
                 <Separator />
 
                 {isLoading ? (
                   <Skeleton className="h-6 w-40 rounded-full" />
                 ) : (
-                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  <span className="text-xs px-3 py-1 rounded-md bg-muted text-muted-foreground">
                     Updated · {formatShortDate(updates.texts)}
                   </span>
                 )}
@@ -144,17 +144,17 @@ export default function AdminDashboardPage() {
           <Link href="/admin/photos" className="block">
             <Card className="group h-full hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
-                <CardTitle className="text-lg">Edit Photos</CardTitle>
+                <CardTitle className="text-md">Edit Photos</CardTitle>
               </CardHeader>
 
               <CardContent className="flex flex-col items-center gap-4">
-                <TbPhotoEdit className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
+                <TbPhotoEdit className="text-3xl text-muted-foreground transition-transform transition-colors group-hover:text-primary group-hover:scale-105" />
 
                 <Separator />
                 {isLoading ? (
                   <Skeleton className="h-6 w-40 rounded-full" />
                 ) : (
-                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  <span className="text-xs px-3 py-1 rounded-md bg-muted text-muted-foreground">
                     Updated · {formatShortDate(updates.media)}
                   </span>
                 )}
@@ -166,17 +166,17 @@ export default function AdminDashboardPage() {
           <Link href="/admin/general" className="block">
             <Card className="h-full group hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
-                <CardTitle className="text-lg">Edit Basics & SEO</CardTitle>
+                <CardTitle className="text-md">Edit Basics & SEO</CardTitle>
               </CardHeader>
 
               <CardContent className="flex flex-col items-center gap-4">
-                <LuTextSearch className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
+                <LuTextSearch className="text-3xl text-muted-foreground transition-transform transition-colors group-hover:text-primary group-hover:scale-105" />
 
                 <Separator />
                 {isLoading ? (
                   <Skeleton className="h-6 w-40 rounded-full" />
                 ) : (
-                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  <span className="text-xs px-3 py-1 rounded-md bg-muted text-muted-foreground">
                     Updated · {formatShortDate(updates.basics)}
                   </span>
                 )}
@@ -188,17 +188,17 @@ export default function AdminDashboardPage() {
           <Link href="/admin/appearance" className="block">
             <Card className="group h-full hover:shadow-lg transition cursor-pointer">
               <CardHeader className="text-center pb-3">
-                <CardTitle className="text-lg">Edit Appearence</CardTitle>
+                <CardTitle className="text-md">Edit Appearence</CardTitle>
               </CardHeader>
 
               <CardContent className="flex flex-col items-center gap-4">
-                <BiPaint className="text-4xl text-muted-foreground transition-colors group-hover:text-primary" />
+                <BiPaint className="text-3xl text-muted-foreground transition-transform transition-colors group-hover:text-primary group-hover:scale-105" />
 
                 <Separator />
                 {isLoading ? (
                   <Skeleton className="h-6 w-40 rounded-full" />
                 ) : (
-                  <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground">
+                  <span className="text-xs px-3 py-1 rounded-md bg-muted text-muted-foreground">
                     Updated · {formatShortDate(updates.texts)}
                   </span>
                 )}
