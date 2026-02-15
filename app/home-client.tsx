@@ -715,13 +715,13 @@ export default function HomeClient({
               </div>
 
               <nav className="flex flex-1 flex-col items-center justify-center gap-6">
-                <button
+                {/* <button
                   type="button"
                   onClick={() => handleHeaderMenuNavigate(".section-hero")}
                   className="text-3xl md:text-4xl font-light tracking-tight text-white hover:opacity-80 transition cursor-pointer"
                 >
                   Home
-                </button>
+                </button> */}
                 <button
                   type="button"
                   onClick={() => handleHeaderMenuNavigate(".section-about")}
