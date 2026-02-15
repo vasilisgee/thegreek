@@ -714,14 +714,14 @@ export default function HomeClient({
                 </button>
               </div>
 
-              <nav className="flex flex-1 flex-col items-center justify-center gap-6">
-                {/* <button
+              <nav className="flex flex-1 flex-col items-center justify-center gap-7">
+                <button
                   type="button"
                   onClick={() => handleHeaderMenuNavigate(".section-hero")}
                   className="text-3xl md:text-4xl font-light tracking-tight text-white hover:opacity-80 transition cursor-pointer"
                 >
                   Home
-                </button> */}
+                </button>
                 <button
                   type="button"
                   onClick={() => handleHeaderMenuNavigate(".section-about")}
@@ -816,7 +816,7 @@ export default function HomeClient({
         </section>
 
         {/* ================= ABOUT ================= */}
-        <section className="section-about flex items-center px-5 pt-15 pb-10 md:px-10 md:pt-28 md:pb-14">
+        <section className="section-about min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">
             <div className="about-left self-end flex h-full flex-col justify-end">
               <h2
@@ -867,7 +867,7 @@ export default function HomeClient({
         </section>
 
         {/* ================= MENU ================= */}
-        <section className="section-menu flex items-center px-5 pt-5 pb-5 md:px-10 md:pt-20 md:pb-12">
+        <section className="section-menu min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20">
           <div className="w-full max-w-6xl mx-auto">
             <h2
               className="text-4xl md:text-6xl font-normal text-brand-primary text-center max-w-3xl mx-auto tracking-tight mb-2"
@@ -1127,9 +1127,10 @@ export default function HomeClient({
         {/* ================= CONTACT ================= */}
         <section
           className="section-contact
+        min-h-screen
         flex items-center
         px-5 md:px-10
-        pt-5 pb-15 md:pt-20 md:pb-28
+        py-16 md:py-20
         "
         >
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">

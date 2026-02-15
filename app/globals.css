@@ -240,47 +240,6 @@ h3 strong{
   font-weight: 700;
 }
 
-@keyframes section-strong-float {
-  0%,
-  100% {
-    transform: translateY(0);
-    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-  50% {
-    transform: translateY(-2px);
-    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
-  }
-}
-
-section h2 strong {
-  display: inline-block;
-  will-change: transform, text-shadow;
-  transition: transform 0.35s ease, text-shadow 0.35s ease;
-}
-
-section h2:hover strong {
-  animation: section-strong-float 0.9s ease-out 1;
-}
-
-section h3 strong {
-  display: inline-block;
-  will-change: transform, text-shadow;
-  transition: transform 0.35s ease, text-shadow 0.35s ease;
-}
-
-section h3:hover strong {
-  animation: section-strong-float 0.9s ease-out 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  section h2 strong {
-    animation: none;
-  }
-  section h3 strong {
-    animation: none;
-  }
-}
-
 .map-frame div,
 .map-frame iframe {
   width: 100% !important;
