@@ -44,13 +44,13 @@ export default function AdminTextsPage() {
             <CardTitle className="text-md">Titles & Descriptions</CardTitle>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           <CollapsibleContent>
             <CardContent className="mt-7 space-y-6">
@@ -63,18 +63,18 @@ export default function AdminTextsPage() {
                   className="w-full"
                 >
                   <TabsList className="mb-4">
-                    <TabsTrigger value="en" className="gap-2">
+                    <TabsTrigger value="en" className="gap-2 group">
                       <span
                         aria-hidden="true"
-                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                         style={{ backgroundImage: "url('/flags/england.svg')" }}
                       />
                       English
                     </TabsTrigger>
-                    <TabsTrigger value="sv" className="gap-2">
+                    <TabsTrigger value="sv" className="gap-2 group">
                       <span
                         aria-hidden="true"
-                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                        className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                         style={{ backgroundImage: "url('/flags/sweden.svg')" }}
                       />
                       Swedish
@@ -135,7 +135,7 @@ export default function AdminTextsPage() {
                 <Separator />
               </div>
 
-              <div className="flex justify-end">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (
@@ -247,7 +247,7 @@ function ContentGrid({
           onChange={(v) => onChange("about_text", v, lang)}
         />
 
-        <div className="pt-1" />
+        <div className="pt-1 -mt-3" />
 
         <SectionHeader
           icon={HiOutlineEnvelope}
@@ -284,7 +284,7 @@ function SectionHeader({
   description: string;
 }) {
   return (
-    <div className="flex items-start gap-3 mb-2">
+    <div className="flex items-start gap-3 mb-5">
       <Icon className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
       <div>
         <h4 className="text-md font-medium">{title}</h4>
@@ -307,7 +307,7 @@ function LabeledInput({
 }) {
   return (
     <div className="space-y-1">
-      <h4 className="text-sm font-medium">{label}</h4>
+      <label className="text-sm font-medium inline-block mb-2">{label}</label>
       <Input
         placeholder={placeholder}
         value={value}
@@ -330,9 +330,9 @@ function LabeledTextarea({
 }) {
   return (
     <div className="space-y-1">
-      <h4 className="text-sm font-medium">{label}</h4>
+      <label className="text-sm font-medium inline-block mb-2">{label}</label>
       <Textarea
-        rows={5}
+        rows={6}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -398,11 +398,11 @@ function ContentGridSkeleton() {
           <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
           <Skeleton className="h-9 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
         </div>
-         <div className="space-y-1 !mt-5">
+         <div className="space-y-1 mt-5!">
           <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
           <Skeleton className="h-9 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
         </div>
-         <div className="space-y-1 !mt-5">
+         <div className="space-y-1 mt-5!">
           <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
            <Skeleton className="h-24 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
         </div>

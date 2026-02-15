@@ -11,7 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { FaGithub } from "react-icons/fa";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
+import { TbGhost3 } from "react-icons/tb";
 import { loginWithGoogle } from "@/lib/auth/google";
 import { setGuestMode } from "@/lib/auth/guest";
 
@@ -22,14 +23,12 @@ export function LoginForm({
 
 {
   const router = useRouter();
-  const { toast } = useToast();
 
   async function handleGoogleLogin() {
     const { error } = await loginWithGoogle();
     if (error) {
-      toast({
-        title: "Login failed",
-        variant: "destructive",
+      toast.error("Login failed", {
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
     }
   }
@@ -42,7 +41,7 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader className="text-center">
+        <CardHeader className="text-center mt-5">
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
             Login with your Google account
@@ -68,7 +67,7 @@ export function LoginForm({
                   Or take the tour
                 </span>
               </div>
-              <div className="grid gap-6">  
+              <div className="grid gap-6 pb-[25px]">  
                 <Button
                     type="button"
                     variant="outline"
@@ -83,8 +82,16 @@ export function LoginForm({
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/vasilisgee/thegreek" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>         
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
+        © {new Date().getFullYear()} theGreek — Admin Panel — View project on{" "}
+        <a
+          href="https://github.com/vasilisgee/thegreek"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 underline hover:text-white transition"
+        >
+          GitHub <FaGithub className="text-base" />
+        </a>
       </div>
     </div>
   )

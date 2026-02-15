@@ -10,15 +10,13 @@ import { useMediaAssets } from "@/hooks/use-media-assets";
 import { useThumbGallery } from "@/hooks/use-thumb-gallery";
 import { useSliderGallery } from "@/hooks/use-slider-gallery";
 
-import { LuUtensilsCrossed } from "react-icons/lu";
-import { RiImageLine, RiLayoutTopLine } from "react-icons/ri";
+import { RiLayoutTopLine } from "react-icons/ri";
 import { TfiLayoutSlider } from "react-icons/tfi";
 import { RiGalleryView } from "react-icons/ri";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ImageCard from "@/components/admin/ImageCard";
-import FileCard from "@/components/admin/FileCard";
 import MediaCard from "@/components/admin/MediaCard";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -48,43 +46,44 @@ export default function AdminPhotosPage() {
 
   return (
     <div className="p-7 space-y-10">
-      {/* ================= RESTAURANT GALLERY & MENU ================= */}
+      {/* ================= HERO BACKGROUND ================= */}
       <Card>
         <Collapsible defaultOpen>
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
-            <CardTitle className="text-md">Hero & Menu</CardTitle>
+            <CardTitle className="text-md">Hero Section</CardTitle>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           <CollapsibleContent>
             <CardContent className="space-y-6 mt-5">
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* LEFT COLUMN */}
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3 mb-2">
-                    <RiLayoutTopLine className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
-                    <div>
-                      <h4 className="text-md font-medium">Hero Background</h4>
-                      <p className="text-xs text-muted-foreground">
-                        Upload a video or image to be displayed as background at
-                        the top of the website.
-                      </p>
-                    </div>
+              <div className="space-y-5">
+                <div className="flex items-start gap-3 mb-5">
+                  <RiLayoutTopLine className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
+                  <div>
+                    <h4 className="text-md font-medium">Hero Background</h4>
+                    <p className="text-xs text-muted-foreground">
+                      Upload a background video and image for the top of the website.
+                    </p>
                   </div>
+                </div>
 
-                  {isLoading ? (
-                    <Skeleton className="h-64 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
-                  ) : (
+                {isLoading ? (
+                  <Skeleton className="h-64 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
+                ) : (
+                  <div className="grid md:grid-cols-2 gap-6">
                     <MediaCard
-                      title=""
+                      title="Background Video "
                       description=""
+                      mode="video"
+                      previewFit="cover"
+                      previewHeightClassName="h-72"
                       imageValue={media?.hero_image ?? null}
                       imageFile={files.hero_image ?? null}
                       onImageChange={(file) => setFile("hero_image", file)}
@@ -92,50 +91,23 @@ export default function AdminPhotosPage() {
                       videoFile={files.hero_video ?? null}
                       onVideoChange={(file) => setFile("hero_video", file)}
                     />
-                  )}
-                </div>
-
-                {/* RIGHT COLUMN */}
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3 mb-2">
-                    <LuUtensilsCrossed className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
-                    <div>
-                      <h4 className="text-md font-medium">Restaurant Menu</h4>
-                      <p className="text-xs text-muted-foreground">
-                        Upload your restaurant menu as a PDF.
-                      </p>
-                    </div>
+                    <ImageCard
+                      title="Background Image "
+                      previewFit="cover"
+                      previewHeightClassName="h-72"
+                      value={media?.hero_image ?? null}
+                      file={files.hero_image ?? null}
+                      onFileChange={(file) => setFile("hero_image", file)}
+                    />
                   </div>
-
-                  {isLoading ? (
-                    <Skeleton className="h-24 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
-                  ) : (
-                    <FileCard
-                      title="English PDF"
-                      value={media?.menu_pdf_en}
-                      file={files.menu_pdf_en ?? null}
-                      onFileChange={(file) => setFile("menu_pdf_en", file)}
-                    />
-                  )}
-
-                  {isLoading ? (
-                    <Skeleton className="h-24 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
-                  ) : (
-                    <FileCard
-                      title="Swedish PDF"
-                      value={media?.menu_pdf_sv}
-                      file={files.menu_pdf_sv ?? null}
-                      onFileChange={(file) => setFile("menu_pdf_sv", file)}
-                    />
-                  )}
-                </div>
+                )}
               </div>
 
               <div className="pt-2">
                 <Separator />
               </div>
 
-              <div className="flex justify-end">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (
@@ -156,20 +128,20 @@ export default function AdminPhotosPage() {
             <CardTitle className="text-md">Restaurant Gallery</CardTitle>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           <CollapsibleContent>
             <CardContent className="space-y-6 mt-5">
               <div className="grid gap-6">
                 {/* LEFT COLUMN */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-3 mb-2">
+                  <div className="flex items-start gap-3 mb-1">
                     <RiGalleryView className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     <div>
                       <h4 className="text-md font-medium">Thumbnail Gallery</h4>
@@ -182,6 +154,7 @@ export default function AdminPhotosPage() {
                   <div className="grid md:grid-cols-4 gap-6">
                     <ImageCard
                       title=""
+                      previewFit="cover"
                       value={gallery.thumb_gallery_1}
                       file={thumbs.thumb_gallery_1 ?? null}
                       onFileChange={(f) => setImage("thumb_gallery_1", f)}
@@ -189,6 +162,7 @@ export default function AdminPhotosPage() {
 
                     <ImageCard
                       title=""
+                      previewFit="cover"
                       value={gallery.thumb_gallery_2}
                       file={thumbs.thumb_gallery_2 ?? null}
                       onFileChange={(f) => setImage("thumb_gallery_2", f)}
@@ -196,6 +170,7 @@ export default function AdminPhotosPage() {
 
                     <ImageCard
                       title=""
+                      previewFit="cover"
                       value={gallery.thumb_gallery_3}
                       file={thumbs.thumb_gallery_3 ?? null}
                       onFileChange={(f) => setImage("thumb_gallery_3", f)}
@@ -203,6 +178,7 @@ export default function AdminPhotosPage() {
 
                     <ImageCard
                       title=""
+                      previewFit="cover"
                       value={gallery.thumb_gallery_4}
                       file={thumbs.thumb_gallery_4 ?? null}
                       onFileChange={(f) => setImage("thumb_gallery_4", f)}
@@ -215,7 +191,7 @@ export default function AdminPhotosPage() {
                 <Separator />
               </div>
 
-              <div className="flex justify-end">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (
@@ -236,17 +212,17 @@ export default function AdminPhotosPage() {
             <CardTitle className="text-md">Events Gallery</CardTitle>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           <CollapsibleContent>
             <CardContent className="space-y-8 mt-5">
-              <div className="flex items-start gap-3 mb-2">
+              <div className="flex items-start gap-3 mb-1">
                 <TfiLayoutSlider className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                 <div>
                   <h4 className="text-md font-medium">Image Slider</h4>
@@ -257,11 +233,12 @@ export default function AdminPhotosPage() {
               </div>
 
               {/* EVENTS GRID */}
-              <div className="grid md:grid-cols-4 gap-6 !mt-5">
+              <div className="grid md:grid-cols-4 gap-6">
                 {/* SLIDE 1 */}
                 <div className="space-y-3">
                   <ImageCard
                     title=""
+                    previewFit="cover"
                     value={sliderGallery.slider_gallery_1}
                     file={sliderFiles.slider_gallery_1 ?? null}
                     onFileChange={(file) =>
@@ -271,20 +248,20 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1 gap-2">
+                      <TabsTrigger value="en" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{
                             backgroundImage: "url('/flags/england.svg')",
                           }}
                         />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                      <TabsTrigger value="sv" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{ backgroundImage: "url('/flags/sweden.svg')" }}
                         />
                         Swedish
@@ -327,6 +304,7 @@ export default function AdminPhotosPage() {
                 <div className="space-y-3">
                   <ImageCard
                     title=""
+                    previewFit="cover"
                     value={sliderGallery.slider_gallery_2}
                     file={sliderFiles.slider_gallery_2 ?? null}
                     onFileChange={(file) =>
@@ -336,20 +314,20 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1 gap-2">
+                      <TabsTrigger value="en" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{
                             backgroundImage: "url('/flags/england.svg')",
                           }}
                         />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                      <TabsTrigger value="sv" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{ backgroundImage: "url('/flags/sweden.svg')" }}
                         />
                         Swedish
@@ -392,6 +370,7 @@ export default function AdminPhotosPage() {
                 <div className="space-y-3">
                   <ImageCard
                     title=""
+                    previewFit="cover"
                     value={sliderGallery.slider_gallery_3}
                     file={sliderFiles.slider_gallery_3 ?? null}
                     onFileChange={(file) =>
@@ -401,20 +380,20 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1 gap-2">
+                      <TabsTrigger value="en" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{
                             backgroundImage: "url('/flags/england.svg')",
                           }}
                         />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                      <TabsTrigger value="sv" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{ backgroundImage: "url('/flags/sweden.svg')" }}
                         />
                         Swedish
@@ -457,6 +436,7 @@ export default function AdminPhotosPage() {
                 <div className="space-y-3">
                   <ImageCard
                     title=""
+                    previewFit="cover"
                     value={sliderGallery.slider_gallery_4}
                     file={sliderFiles.slider_gallery_4 ?? null}
                     onFileChange={(file) =>
@@ -466,20 +446,20 @@ export default function AdminPhotosPage() {
 
                   <Tabs defaultValue="en" className="w-full">
                     <TabsList className="w-full">
-                      <TabsTrigger value="en" className="flex-1 gap-2">
+                      <TabsTrigger value="en" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{
                             backgroundImage: "url('/flags/england.svg')",
                           }}
                         />
                         English
                       </TabsTrigger>
-                      <TabsTrigger value="sv" className="flex-1 gap-2">
+                      <TabsTrigger value="sv" className="flex-1 gap-2 group">
                         <span
                           aria-hidden="true"
-                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center"
+                          className="h-5 w-5 rounded-full overflow-hidden bg-white bg-cover bg-center opacity-50 transition-opacity group-data-[state=active]:opacity-100"
                           style={{ backgroundImage: "url('/flags/sweden.svg')" }}
                         />
                         Swedish
@@ -520,7 +500,7 @@ export default function AdminPhotosPage() {
               </div>
 
               <Separator />
-              <div className="flex justify-end">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (
@@ -536,3 +516,4 @@ export default function AdminPhotosPage() {
     </div>
   );
 }
+

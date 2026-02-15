@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { TbGhost3 } from "react-icons/tb";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { useIsGuest } from "@/lib/auth/guest";
@@ -45,7 +45,6 @@ const emptyTexts: WebsiteTexts = {
 };
 
 export function useWebsiteTexts() {
-  const { toast } = useToast();
   const isGuest = useIsGuest();
 
   const [texts, setTexts] = useState<Record<Lang, WebsiteTexts>>({
@@ -92,9 +91,8 @@ export function useWebsiteTexts() {
 
       if (error) {
         console.error(error);
-        toast({
-          title: "Failed to load texts",
-          variant: "destructive",
+        toast.error("Failed to load texts", {
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         setIsLoading(false);
         return;
@@ -141,20 +139,13 @@ export function useWebsiteTexts() {
     }
 
     loadTexts();
-  }, [toast, isGuest]);
+  }, [isGuest]);
 
   async function saveTexts() {
       if (isGuest) {
-        toast({
-          title: "Guest mode",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Saving is disabled for guest users.
-              </span>
-            </div>
-          ),
+        toast("Guest mode", {
+          description: "Saving is disabled for guest users.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
@@ -202,31 +193,16 @@ export function useWebsiteTexts() {
 
     if (error) {
       console.error(error);
-      toast({
-        title: "Failed to save",
-        variant: "destructive",
-        description: (
-          <div className="flex items-center gap-2">
-            <TbGhost3 className="h-5 w-5" />
-            <span className="text-xs">
-              Something went wrong.
-            </span>
-          </div>
-        ),
+      toast.error("Failed to save", {
+        description: "Something went wrong.",
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
       return;
     }
 
-    toast({
-      title: "Texts saved",
-      description: (
-        <div className="flex items-center gap-2">
-          <FaRegFloppyDisk className="h-5 w-5" />
-          <span className="text-xs text-muted-foreground">
-            Changes saved successfully.
-          </span>
-        </div>
-      ),
+    toast("Texts saved", {
+      description: "Changes saved successfully.",
+      icon: <FaRegFloppyDisk className="h-5 w-5" />,
     });
   }
 

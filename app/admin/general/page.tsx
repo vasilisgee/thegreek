@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import {
   Card,
@@ -13,8 +14,9 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { FaInstagram } from "react-icons/fa6";
-import { HiOutlineEnvelope } from "react-icons/hi2";
+import { FaInstagram, FaGoogle } from "react-icons/fa6";
+import { GrShop } from "react-icons/gr";
+import { RiSeoLine } from "react-icons/ri";
 import { TbBuildingStore } from "react-icons/tb";
 
 import { Input } from "@/components/ui/input";
@@ -29,6 +31,10 @@ import { useBusinessInfo } from "@/hooks/use-business-info";
 import { useWebsiteBasics } from "@/hooks/use-website-basic";
 
 export default function AdminGeneralPage() {
+  const searchParams = useSearchParams();
+  const isSeoView =
+    searchParams?.has("SEO") ||
+    (searchParams?.get("view") ?? "").toLowerCase() === "seo";
   const { businessInfo, updateField, saveBusinessInfo, loading, isLoading } =
     useBusinessInfo();
 
@@ -44,7 +50,7 @@ export default function AdminGeneralPage() {
     <div className="p-7 space-y-10">
       {/* ================= BUSINESS INFO ================= */}
       <Card>
-        <Collapsible defaultOpen>
+        <Collapsible defaultOpen={!isSeoView}>
           {/* ===== HEADER ===== */}
           <CardHeader className="flex flex-row items-center justify-between gap-4 pt-4 pb-4">
             <div>
@@ -52,14 +58,14 @@ export default function AdminGeneralPage() {
             </div>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 {" "}
                 <ChevronDown className=" h-4 w-4 transition-transform group-data-[state=open]:rotate-180 " />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           {/* ===== CONTENT ===== */}
           <CollapsibleContent>
@@ -67,7 +73,7 @@ export default function AdminGeneralPage() {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* LEFT COLUMN */}
                 <div className="space-y-5">
-                  <div className="flex items-start gap-3 mb-2 align-center">
+                  <div className="flex items-start gap-3 mb-5 align-center">
                     <div className="flex items-center justify-center">
                       <TbBuildingStore className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
@@ -86,7 +92,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">Address</label>
+                      <label className="text-sm font-medium inline-block mb-2">Address</label>
                     )}
 
                     {isLoading ? (
@@ -104,7 +110,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">Phone</label>
+                      <label className="text-sm font-medium inline-block mb-2">Phone</label>
                     )}
 
                     {isLoading ? (
@@ -122,7 +128,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">Email</label>
+                      <label className="text-sm font-medium inline-block mb-2">Email</label>
                     )}
 
                     {isLoading ? (
@@ -142,7 +148,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">
+                      <label className="text-sm font-medium inline-block mb-2">
                         Opening hours
                       </label>
                     )}
@@ -166,7 +172,7 @@ export default function AdminGeneralPage() {
                 <div className="space-y-5">
                   {/* ===== SOCIAL MEDIA ===== */}
 
-                  <div className="flex items-start gap-3 mb-2 align-center">
+                  <div className="flex items-start gap-3 mb-5 align-center">
                     <div className="flex items-center justify-center">
                       <FaInstagram className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
@@ -182,7 +188,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">Facebook</label>
+                      <label className="text-sm font-medium inline-block mb-2">Facebook</label>
                     )}
 
                     {isLoading ? (
@@ -202,7 +208,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">Instagram</label>
+                      <label className="text-sm font-medium inline-block mb-2">Instagram</label>
                     )}
 
                     {isLoading ? (
@@ -222,7 +228,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <label className="text-sm font-medium">TikTok</label>
+                      <label className="text-sm font-medium inline-block mb-2">TikTok</label>
                     )}
 
                     {isLoading ? (
@@ -240,47 +246,24 @@ export default function AdminGeneralPage() {
 
                   {/* ===== ORDER LINKS ===== */}
 
-                  <div className="flex items-start gap-3 mb-2 align-center">
+                  <div className="flex items-start gap-3 mb-5 align-center">
                     <div className="flex items-center justify-center">
-                      <HiOutlineEnvelope className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
+                      <GrShop className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
                     </div>
                     <div>
-                      <h4 className="text-md font-medium">Order Online</h4>
+                      <h4 className="text-md font-medium">Online Order</h4>
                       <p className="text-xs text-muted-foreground">
-                        Links used for online ordering buttons on the website.
+                        Link used for online ordering button on the website.
                       </p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       {isLoading ? (
                         <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                       ) : (
-                        <label className="text-sm font-medium gap-2">
-                          Order pickup
-                        </label>
-                      )}
-
-                      {isLoading ? (
-                        <Skeleton className="h-9 w-full rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
-                      ) : (
-                        <Input
-                          value={businessInfo.order_pickup}
-                          onChange={(e) =>
-                            updateField("order_pickup", e.target.value)
-                          }
-                          placeholder="Enter the button URL"
-                        />
-                      )}
-                    </div>
-
-                    <div className="space-y-1">
-                      {isLoading ? (
-                        <Skeleton className="w-32 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
-                      ) : (
-                        <label className="text-sm font-medium">
-                          Order delivery
+                        <label className="text-sm font-medium inline-block mb-2">
+                          Online ordering profile
                         </label>
                       )}
 
@@ -292,18 +275,18 @@ export default function AdminGeneralPage() {
                           onChange={(e) =>
                             updateField("order_delivery", e.target.value)
                           }
-                          placeholder="Enter the button URL"
+                          placeholder="Enter the order profile URL"
                         />
                       )}
                     </div>
-                  </div>
+
                 </div>
               </div>
               <div className="py-2">
                 <Separator />
               </div>
               {/* ===== FOOTER ACTION ===== */}
-              <div className="flex justify-end ">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (
@@ -327,7 +310,7 @@ export default function AdminGeneralPage() {
             </div>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown
                   className="
                     h-4 w-4
@@ -339,7 +322,7 @@ export default function AdminGeneralPage() {
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           {/* ===== CONTENT ===== */}
           <CollapsibleContent>
@@ -347,18 +330,25 @@ export default function AdminGeneralPage() {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* LEFT COLUMN */}
                 <div className="space-y-5">
+                  <div className="flex items-start gap-3 mb-5 align-center">
+                    <div className="flex items-center justify-center">
+                      <RiSeoLine className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-md font-medium">SEO Meta </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Titles, descriptions, and images used for SEO and social
+                        sharing.
+                      </p>
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     {isLoading ? (
                       <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <div>
-                        {" "}
-                        <h4 className="text-sm font-medium">Main Title</h4>
-                        <p className="text-xs text-muted-foreground pb-2">
-                          Displayed in the browser title and search engine
-                          results.
-                        </p>
-                      </div>
+                     <label className="text-sm font-medium inline-block mb-2">Main Title</label>
+                       
                     )}
 
                     {isLoading ? (
@@ -378,16 +368,9 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <div>
-                        {" "}
-                        <h4 className="text-sm font-medium">
-                          Website Description
-                        </h4>
-                        <p className="text-xs text-muted-foreground pb-2">
-                          Short description used for search engines and sharing
-                          previews.
-                        </p>
-                      </div>
+                      <label className="text-sm font-medium inline-block mb-2">
+                          Meta Description
+                        </label>
                     )}
 
                     {isLoading ? (
@@ -406,7 +389,7 @@ export default function AdminGeneralPage() {
 
                   <ImageCard
                     title="Meta Image"
-                    description="Shown when the website link is shared on social platforms."
+                    description=""
                     value={websiteBasics.meta_image}
                     file={metaImageFile}
                     onFileChange={handleMetaImageChange}
@@ -416,22 +399,27 @@ export default function AdminGeneralPage() {
 
                 {/* RIGHT COLUMN */}
                 <div className="space-y-5">
+                  <div className="flex items-start gap-3 mb-5 align-center">
+                    <div className="flex items-center justify-center">
+                      <FaGoogle className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-8 h-8 p-2 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-md font-medium">
+                        Analytics & Maps
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Tracking scripts and map embeds used on the website.
+                      </p>
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     {isLoading ? (
                       <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <div>
-                        <h4 className="text-sm font-medium">
+                       <label className="text-sm font-medium inline-block mb-2">
                           Google Analytics
-                        </h4>
-                        <p className="text-xs text-muted-foreground pb-2">
-                          Paste your tracking script without the{" "}
-                          <code className="px-1 py-0.5 rounded bg-muted text-xs">
-                            &lt;script&gt;
-                          </code>{" "}
-                          tag to enable website analytics.
-                        </p>
-                      </div>
+                        </label>
                     )}
 
                     {isLoading ? (
@@ -452,7 +440,7 @@ export default function AdminGeneralPage() {
                         spellCheck={false}
                         autoCorrect="off"
                         autoCapitalize="off"
-                        rows={9}
+                        rows={7}
                         value={websiteBasics.google_analytics}
                         onChange={(e) =>
                           updateWebsiteField("google_analytics", e.target.value)
@@ -465,13 +453,7 @@ export default function AdminGeneralPage() {
                     {isLoading ? (
                       <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
                     ) : (
-                      <div>
-                        {" "}
-                        <h4 className="text-sm font-medium">Google Maps</h4>
-                        <p className="text-xs text-muted-foreground pb-2">
-                          Embed code used to display the map on the website.
-                        </p>
-                      </div>
+                      <label className="text-sm font-medium inline-block mb-2">Google Maps</label>
                     )}
 
                     {isLoading ? (
@@ -492,7 +474,7 @@ export default function AdminGeneralPage() {
                         spellCheck={false}
                         autoCorrect="off"
                         autoCapitalize="off"
-                        rows={10}
+                        rows={9}
                         value={websiteBasics.google_maps}
                         onChange={(e) =>
                           updateWebsiteField("google_maps", e.target.value)
@@ -506,7 +488,7 @@ export default function AdminGeneralPage() {
                 <Separator />
               </div>
               {/* ===== FOOTER ACTION ===== */}
-              <div className="flex justify-end">
+              <div className="flex justify-end pb-[25px]">
                 {isLoading ? (
                   <Skeleton className="h-8 w-32 rounded-md animate-pulse [animation-duration:2s] bg-muted/80" />
                 ) : (

@@ -23,6 +23,10 @@ function toPublicUrl(path: string | null) {
 type MediaCardProps = {
   title: string;
   description?: string;
+  mode?: "all" | "video";
+  imagePreviewFit?: "contain" | "cover";
+  previewFit?: "contain" | "cover";
+  previewHeightClassName?: string;
 
   /** DB values */
   imageValue: string | null;
@@ -40,6 +44,10 @@ type MediaCardProps = {
 export default function MediaCard({
   title,
   description,
+  mode = "all",
+  imagePreviewFit = "contain",
+  previewFit = "contain",
+  previewHeightClassName,
   imageValue,
   videoValue,
   imageFile,
@@ -47,7 +55,10 @@ export default function MediaCard({
   onImageChange,
   onVideoChange,
 }: MediaCardProps) {
+  const isVideoOnly = mode === "video";
   const [videoPreview, setVideoPreview] = useState<string | null>(null);
+  const resolvedImageFit = imagePreviewFit ?? previewFit;
+  const resolvedHeightClassName = previewHeightClassName ?? "h-60";
 
   /* ---------- sync preview ---------- */
   useEffect(() => {
@@ -71,67 +82,106 @@ export default function MediaCard({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1">
       {/* Header */}
-      <div>
-        <h4 className="text-sm font-medium">{title}</h4>
+      <h4 className="text-sm font-medium inline-block mb-2">{title}</h4>
         {description && (
           <p className="text-xs text-muted-foreground">{description}</p>
         )}
-      </div>
 
-      <Tabs defaultValue="image">
-        <TabsList>
-          <TabsTrigger value="image">Image</TabsTrigger>
-          <TabsTrigger value="video">Video</TabsTrigger>
-        </TabsList>
+      {isVideoOnly ? (
+        <div className={`relative ${resolvedHeightClassName} rounded-lg border border-dashed border-border bg-muted/40 flex items-center justify-center overflow-hidden`}>
+          {videoPreview ? (
+            <>
+              <video
+                src={videoPreview}
+                controls
+                className={`absolute inset-0 h-full w-full ${
+                  previewFit === "cover" ? "object-cover" : "object-contain"
+                }`}
+              />
 
-        {/* IMAGE */}
-        <TabsContent value="image">
-          <ImageCard
-            title=""
-            value={toPublicUrl(imageValue)}
-            file={imageFile}
-            onFileChange={onImageChange}
-          />
-        </TabsContent>
+              <Button
+                type="button"
+                size="icon"
+                variant="secondary"
+                onClick={clearVideo}
+                className="absolute top-2 w-7 h-7 right-2"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </>
+          ) : (
+            <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground text-xs">
+              <TbVideoPlus className="h-8 w-8" />
+              Upload Video (MP4 / WEBM)
+              <input
+                type="file"
+                accept="video/mp4,video/webm"
+                onChange={handleVideoChange}
+                className="hidden"
+              />
+            </label>
+          )}
+        </div>
+      ) : (
+        <Tabs defaultValue="image">
+          <TabsList>
+            <TabsTrigger value="image">Image</TabsTrigger>
+            <TabsTrigger value="video">Video</TabsTrigger>
+          </TabsList>
 
-        {/* VIDEO */}
-        <TabsContent value="video">
-          <div className="relative h-60 rounded-lg border border-dashed border-border bg-muted/40 flex items-center justify-center overflow-hidden">
-            {videoPreview ? (
-              <>
-                <video
-                  src={videoPreview}
-                  controls
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
+          {/* IMAGE */}
+          <TabsContent value="image">
+            <ImageCard
+              title=""
+              value={toPublicUrl(imageValue)}
+              file={imageFile}
+              onFileChange={onImageChange}
+              previewFit={resolvedImageFit}
+              heightClassName={resolvedHeightClassName}
+            />
+          </TabsContent>
 
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="secondary"
-                  onClick={clearVideo}
-                  className="absolute top-2 right-2"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </>
-            ) : (
-              <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground text-xs">
-                <TbVideoPlus className="h-8 w-8" />
-                Upload Video (MP4 / WEBM)
-                <input
-                  type="file"
-                  accept="video/mp4,video/webm"
-                  onChange={handleVideoChange}
-                  className="hidden"
-                />
-              </label>
-            )}
-          </div>
-        </TabsContent>
-      </Tabs>
+          {/* VIDEO */}
+          <TabsContent value="video">
+            <div className={`relative ${resolvedHeightClassName} rounded-lg border border-dashed border-border bg-muted/40 flex items-center justify-center overflow-hidden`}>
+              {videoPreview ? (
+                <>
+                  <video
+                    src={videoPreview}
+                    controls
+                    className={`absolute inset-0 h-full w-full ${
+                      previewFit === "cover" ? "object-cover" : "object-contain"
+                    }`}
+                  />
+
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="secondary"
+                    onClick={clearVideo}
+                    className="absolute top-2 right-2"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </>
+              ) : (
+                <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground text-xs">
+                  <TbVideoPlus className="h-8 w-8" />
+                  Upload Video (MP4 / WEBM)
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm"
+                    onChange={handleVideoChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
+      )}
     </div>
   );
 }

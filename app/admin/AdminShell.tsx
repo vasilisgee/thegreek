@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { FaGithub } from "react-icons/fa";
+import { IoOpen } from "react-icons/io5";
 
 /* admin components */
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
@@ -35,16 +36,20 @@ const PAGE_META: Record<string, { title: string; description?: string }> = {
     description: "Customize the website look and feel, colors, and layout.",
   },
   "/admin/general": {
-    title: "General Settings",
+    title: "Basic Settings",
     description: "Global website settings and business information.",
   },
   "/admin/texts": {
     title: "Website Texts",
-    description: "Main titles, descriptions, and button labels used across the website in multiple languages.",
+    description: "Main titles, descriptions, and labels used across the website in multiple languages.",
   },
   "/admin/photos": {
     title: "Photos & Media",
     description: "Images and files displayed across the website sections.",
+  },
+  "/admin/catalogue": {
+    title: "Menu Catalogue",
+    description: "Manage the restaurant menu shown on the website.",
   },
 };
 
@@ -103,7 +108,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
           {/* TOP BAR */}
           <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-background">
             <div>
-              <h1 className="text-xl font-bold tracking-tight">
+              <h1 className="text-lg font-semibold text-muted-foreground tracking-tight">
                 {pageMeta.title}
               </h1>
               {pageMeta.description && (
@@ -114,6 +119,11 @@ export default function AdminShell({ children }: { children: ReactNode }) {
             </div>
 
             <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" asChild aria-label="Preview website">
+                <a href="/" target="_blank" rel="noopener noreferrer">
+                  <IoOpen className="h-5! w-5!" />
+                </a>
+              </Button>
               <ThemeToggle />
 
               {/* USER MENU (desktop) */}
@@ -200,9 +210,15 @@ export default function AdminShell({ children }: { children: ReactNode }) {
           
         {/* Footer */}
         <footer className="border-t bg-background px-6 py-5 text-xs text-center text-muted-foreground">
-          
-              © {new Date().getFullYear()} TheGreek — View project on <a href="https://github.com/vasilisgee/thegreek" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline hover:text-white transition"> GitHub <FaGithub className="text-base" /></a>
-       
+          © {new Date().getFullYear()} theGreek — Admin Panel — View project on{" "}
+          <a
+            href="https://github.com/vasilisgee/thegreek"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 underline"
+          >
+            GitHub <FaGithub className="text-base" />
+          </a>
         </footer>
         </div>
       </div>

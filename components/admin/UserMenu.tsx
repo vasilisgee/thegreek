@@ -65,7 +65,7 @@ export function UserMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-3 px-2 py-1 rounded-md hover:bg-muted w-full">
+        <button className="flex cursor-pointer items-center gap-3 px-2 py-1 rounded-md hover:bg-muted w-full">
           <Avatar className="h-9 w-9 border border-muted-foreground/30">
             {displayAvatarUrl && (
               <AvatarImage src={displayAvatarUrl} alt="User avatar" />

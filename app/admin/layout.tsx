@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import AdminShell from "./AdminShell";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
-    default: "theGreek Admin",
-    template: "%s - theGreek Admin",
+    default: "theGreek — Admin Panel",
+    template: "%s — theGreek — Admin Panel",
   },
   description: "theGreek Admin Panel",
   robots: {

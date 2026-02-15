@@ -16,10 +16,10 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { ChevronDown, Circle, Square } from "lucide-react";
-import { ComponentType, useState } from "react";
+import { ComponentType } from "react";
 import { RiSparkling2Line } from "react-icons/ri";
 import { MdOutlineRoundedCorner, MdLanguage } from "react-icons/md";
-import { FaLetterboxd, FaRegFloppyDisk } from "react-icons/fa6";
+import { FaLetterboxd } from "react-icons/fa6";
 import FileCard from "@/components/admin/FileCard";
 import { LuPaintBucket } from "react-icons/lu";
 import { RiFontSize } from "react-icons/ri";
@@ -29,10 +29,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useToast } from "@/hooks/use-toast";
-import { TbGhost3 } from "react-icons/tb";
-import { useIsGuest } from "@/lib/auth/guest";
 import dynamic from "next/dynamic";
+import { useThemeOptions } from "@/hooks/use-theme-options";
 
 const HexColorPicker = dynamic(
   () => import("react-colorful").then((mod) => mod.HexColorPicker),
@@ -95,57 +93,29 @@ const LAYOUT_OPTIONS = [
 ] as const;
 
 export default function AdminAppearancePage() {
-  const { toast } = useToast();
-  const isGuest = useIsGuest();
-  const [layoutStyle, setLayoutStyle] = useState<(typeof LAYOUT_OPTIONS)[number]["value"]>("rounded");
+  const {
+    themeOptions,
+    updateField,
+    saveThemeOptions,
+    handleLogoChange,
+    logoFile,
+    loading,
+    isLoading,
+  } = useThemeOptions();
   const selectedLayout =
-    LAYOUT_OPTIONS.find((option) => option.value === layoutStyle) ??
+    LAYOUT_OPTIONS.find((option) => option.value === themeOptions.layout_style) ??
     LAYOUT_OPTIONS[0];
   const SelectedLayoutIcon = selectedLayout.icon;
-  const [fontFamily, setFontFamily] = useState(FONT_OPTIONS[0]);
-  const [mainLanguage, setMainLanguage] = useState(LANGUAGE_OPTIONS[0].value);
-  const [secondaryLanguage, setSecondaryLanguage] = useState("sv");
-  const [logoFile, setLogoFile] = useState<File | null>(null);
-  const [brandColor, setBrandColor] = useState("#151a3f");
-  const [backgroundColor, setBackgroundColor] = useState("#f5f3f0");
-  const [textColor, setTextColor] = useState("#e2e8f0");
-  const [headingColor, setHeadingColor] = useState("#151a3f");
-  const selectedFont = FONT_OPTIONS.find((font) => font === fontFamily) ?? FONT_OPTIONS[0];
+  const selectedFont =
+    FONT_OPTIONS.find((font) => font === themeOptions.font_family) ??
+    FONT_OPTIONS[0];
   const selectedMainLanguage =
-    LANGUAGE_OPTIONS.find((option) => option.value === mainLanguage) ?? LANGUAGE_OPTIONS[0];
+    LANGUAGE_OPTIONS.find((option) => option.value === themeOptions.main_language) ??
+    LANGUAGE_OPTIONS[0];
   const selectedSecondaryLanguage =
-    LANGUAGE_OPTIONS.find((option) => option.value === secondaryLanguage) ??
+    LANGUAGE_OPTIONS.find((option) => option.value === themeOptions.secondary_language) ??
     LANGUAGE_OPTIONS.find((option) => option.value === "sv") ??
     LANGUAGE_OPTIONS[1];
-
-  function handleSave() {
-    if (isGuest) {
-      toast({
-        title: "Guest mode",
-        description: (
-          <div className="flex items-center gap-2">
-            <TbGhost3 className="h-5 w-5" />
-            <span className="text-xs text-muted-foreground">
-              Saving is disabled for guest users.
-            </span>
-          </div>
-        ),
-      });
-      return;
-    }
-
-    toast({
-      title: "Settings saved",
-      description: (
-        <div className="flex items-center gap-2">
-          <FaRegFloppyDisk className="h-5 w-5" />
-          <span className="text-xs text-muted-foreground">
-            Your changes were saved successfully.
-          </span>
-        </div>
-      ),
-    });
-  }
 
   return (
     <div className="p-7 space-y-10">
@@ -155,13 +125,13 @@ export default function AdminAppearancePage() {
             <CardTitle className="text-md">Website Appearance</CardTitle>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="group !mt-0">
+              <Button variant="ghost" size="icon" className="group mt-0!">
                 <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
               </Button>
             </CollapsibleTrigger>
           </CardHeader>
 
-          <Separator />
+          <Separator className="group-data-[state=closed]/collapsible:hidden" />
 
           <CollapsibleContent>
             <CardContent className="mt-7 space-y-8">
@@ -177,9 +147,9 @@ export default function AdminAppearancePage() {
                   <FileCard
                     title="Logo file"
                     hideHeader
-                    value={null}
+                    value={themeOptions.site_logo}
                     file={logoFile}
-                    onFileChange={setLogoFile}
+                    onFileChange={handleLogoChange}
                     accept=".jpg,.jpeg,.png,.svg"
                     allowedMimeTypes={["image/jpeg", "image/png", "image/svg+xml"]}
                     allowedExtensions={[".jpg", ".jpeg", ".png", ".svg"]}
@@ -199,30 +169,34 @@ export default function AdminAppearancePage() {
                     <ColorPickerField
                       id="main-color"
                       label="Brand"
-                      color={brandColor}
-                      onChange={setBrandColor}
+                      color={themeOptions.brand_color}
+                      onChange={(value) => updateField("brand_color", value)}
                     />
                     <ColorPickerField
                       id="background-color"
                       label="Background"
-                      color={backgroundColor}
-                      onChange={setBackgroundColor}
+                      color={themeOptions.background_color}
+                      onChange={(value) =>
+                        updateField("background_color", value)
+                      }
                     />
                     <ColorPickerField
                       id="titles-color"
                       label="Headings"
-                      color={headingColor}
-                      onChange={setHeadingColor}
+                      color={themeOptions.heading_color}
+                      onChange={(value) =>
+                        updateField("heading_color", value)
+                      }
                     />
                     <ColorPickerField
                       id="text-color"
                       label="Text"
-                      color={textColor}
-                      onChange={setTextColor}
+                      color={themeOptions.text_color}
+                      onChange={(value) => updateField("text_color", value)}
                     />
                   </div>
 
-                  <div className="pt-[10px]" />
+                  <div className="pt-1" />
 
                   <SectionHeader
                     icon={RiFontSize}
@@ -231,6 +205,7 @@ export default function AdminAppearancePage() {
                   />
 
                   <div className="space-y-1">
+                    <Label htmlFor="font-family " className="inline-block mb-2">Font Family</Label>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -244,14 +219,16 @@ export default function AdminAppearancePage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="start"
-                        className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                        className="w-(--radix-dropdown-menu-trigger-width)"
                       >
                         {FONT_OPTIONS.map((font) => (
                           <DropdownMenuItem
                             key={font}
-                            onSelect={() => setFontFamily(font)}
+                            onSelect={() => updateField("font_family", font)}
                             className={`text-sm font-normal ${
-                              font === fontFamily ? "bg-accent text-accent-foreground" : ""
+                              font === themeOptions.font_family
+                                ? "bg-accent text-accent-foreground"
+                                : ""
                             }`}
                           >
                             {font}
@@ -270,14 +247,20 @@ export default function AdminAppearancePage() {
                     description="Enable or disable motion throughout the site."
                   />
 
-                  <div className="flex items-center justify-between gap-4 rounded-md border border-border px-3 py-3">
+                  <div className="flex items-center justify-between gap-4 rounded-md border border-border px-5 py-6">
                     <div>
                       <p className="text-sm font-medium">Enable animations</p>
                       <p className="text-xs text-muted-foreground">
                         Smooth transitions and subtle effects.
                       </p>
                     </div>
-                    <Switch id="animations-toggle" defaultChecked />
+                    <Switch
+                      id="animations-toggle"
+                      checked={themeOptions.animations_enabled}
+                      onCheckedChange={(value) =>
+                        updateField("animations_enabled", value)
+                      }
+                    />
                   </div>
 
                   <div className="pt-1" />
@@ -289,7 +272,7 @@ export default function AdminAppearancePage() {
                   />
 
                   <div className="space-y-1">
-                    <Label htmlFor="layout-style">Corner style</Label>
+                    <Label htmlFor="layout-style" className="inline-block mb-2">Corner style</Label>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -306,15 +289,18 @@ export default function AdminAppearancePage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="start"
-                        className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                        className="w-(--radix-dropdown-menu-trigger-width)"
                       >
                         {LAYOUT_OPTIONS.map((option) => {
                           const Icon = option.icon;
-                          const isSelected = option.value === layoutStyle;
+                          const isSelected =
+                            option.value === themeOptions.layout_style;
                           return (
                             <DropdownMenuItem
                               key={option.value}
-                              onSelect={() => setLayoutStyle(option.value)}
+                              onSelect={() =>
+                                updateField("layout_style", option.value)
+                              }
                               className={`gap-2 ${isSelected ? "bg-accent text-accent-foreground" : ""}`}
                             >
                               <Icon className="h-4 w-4 text-muted-foreground" />
@@ -341,7 +327,7 @@ export default function AdminAppearancePage() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <Label htmlFor="language-main">Main language</Label>
+                      <Label htmlFor="language-main" className="inline-block mb-2">Main language</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
@@ -360,14 +346,16 @@ export default function AdminAppearancePage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                           align="start"
-                          className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                          className="w-(--radix-dropdown-menu-trigger-width)"
                         >
                           {LANGUAGE_OPTIONS.map((language) => (
                             <DropdownMenuItem
                               key={language.value}
-                              onSelect={() => setMainLanguage(language.value)}
+                              onSelect={() =>
+                                updateField("main_language", language.value)
+                              }
                               className={
-                                language.value === mainLanguage
+                                language.value === themeOptions.main_language
                                   ? "bg-accent text-accent-foreground"
                                   : undefined
                               }
@@ -383,7 +371,7 @@ export default function AdminAppearancePage() {
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="language-secondary">
+                      <Label htmlFor="language-secondary" className="inline-block mb-2">
                         Secondary language
                       </Label>
                       <DropdownMenu>
@@ -404,14 +392,16 @@ export default function AdminAppearancePage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                           align="start"
-                          className="w-[var(--radix-dropdown-menu-trigger-width)]"
+                          className="w-(--radix-dropdown-menu-trigger-width)"
                         >
                           {LANGUAGE_OPTIONS.map((language) => (
                             <DropdownMenuItem
                               key={language.value}
-                              onSelect={() => setSecondaryLanguage(language.value)}
+                              onSelect={() =>
+                                updateField("secondary_language", language.value)
+                              }
                               className={
-                                language.value === secondaryLanguage
+                                language.value === themeOptions.secondary_language
                                   ? "bg-accent text-accent-foreground"
                                   : undefined
                               }
@@ -433,8 +423,12 @@ export default function AdminAppearancePage() {
                 <Separator />
               </div>
 
-              <div className="flex justify-end">
-                <Button type="button" onClick={handleSave}>
+              <div className="flex justify-end pb-[25px]">
+                <Button
+                  type="button"
+                  onClick={saveThemeOptions}
+                  disabled={loading || isLoading}
+                >
                   Save changes
                 </Button>
               </div>
@@ -456,7 +450,7 @@ function SectionHeader({
   description: string;
 }) {
   return (
-    <div className="flex items-start gap-3 mb-2">
+    <div className="flex items-start gap-3 mb-5">
       <Icon className="text-brand-primary/80 bg-muted/60 border border-border/60 rounded-md w-9 h-9 p-2 mt-1" />
       <div>
         <h4 className="text-md font-medium">{title}</h4>
@@ -479,7 +473,7 @@ function ColorPickerField({
 }) {
   return (
     <div className="space-y-1">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id} className="inline-block mb-2">{label}</Label>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -501,7 +495,7 @@ function ColorPickerField({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="w-[var(--radix-dropdown-menu-trigger-width)] p-3"
+          className="w-(--radix-dropdown-menu-trigger-width) p-3"
         >
           <div className="space-y-3">
             <HexColorPicker
@@ -517,7 +511,7 @@ function ColorPickerField({
                 color={color}
                 onChange={onChange}
                 prefixed
-                className="h-[45px] w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                className="h-[45px] w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
               />
             </div>
           </div>

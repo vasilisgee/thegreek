@@ -11,7 +11,7 @@ export function LanguageTabs({
     <div className="flex gap-2 mb-4">
       <button
         onClick={() => onChange("en")}
-        className={`px-3 py-1 rounded-md text-sm ${
+        className={`cursor-pointer px-3 py-1 rounded-md text-sm ${
           active === "en"
             ? "bg-primary text-primary-foreground"
             : "bg-muted text-muted-foreground"
@@ -21,7 +21,7 @@ export function LanguageTabs({
       </button>
       <button
         onClick={() => onChange("sv")}
-        className={`px-3 py-1 rounded-md text-sm ${
+        className={`cursor-pointer px-3 py-1 rounded-md text-sm ${
           active === "sv"
             ? "bg-primary text-primary-foreground"
             : "bg-muted text-muted-foreground"

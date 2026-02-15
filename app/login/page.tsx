@@ -1,44 +1,46 @@
 "use client";
 
+"use client";
+
 import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { LoginForm } from "@/components/login-form"
 import { Providers } from "@/app/providers"
 import ThemeToggle from "@/components/admin/ThemeToggle"
-import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import { TbGhost3 } from "react-icons/tb";
 
 function LoginPageContent() {
   const params = useSearchParams();
-  const { toast } = useToast();
 
   useEffect(() => {
     const error = params.get("error");
     if (!error) return;
 
     if (error === "unauthorized") {
-      toast({
-        title: "Access denied",
-        variant: "destructive",
+      toast.error("Access denied", {
         description: "Your email is not on the admin allow list.",
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
     }
 
     if (error === "oauth") {
-      toast({
-        title: "Login failed",
-        variant: "destructive",
+      toast.error("Login failed", {
         description: "Google sign-in failed. Please try again.",
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
     }
 
     if (error === "idle") {
-      toast({
-        title: "Session expired",
+      toast("Session expired", {
         description: "You were logged out after inactivity.",
+        duration: Infinity,
+        closeButton: true,
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
     }
-  }, [params, toast]);
+  }, [params]);
 
   return (
     <div className="relative flex min-h-svh flex-col items-center justify-center gap-6 bg-background text-foreground p-6 md:p-10">

@@ -103,6 +103,7 @@ export default function FileCard({
               size="icon"
               variant="secondary"
               onClick={clearFile}
+              className="w-7 h-7"
             >
               <X className="h-4 w-4" />
             </Button>

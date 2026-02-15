@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useIsGuest } from "@/lib/auth/guest";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { TbGhost3 } from "react-icons/tb";
@@ -45,7 +45,6 @@ const EMPTY: SliderGallery = {
 type SliderFiles = Record<string, File | null>;
 
 export function useSliderGallery() {
-  const { toast } = useToast();
   const isGuest = useIsGuest();
 
   const [sliderGallery, setSliderGallery] = useState<SliderGallery>(EMPTY);
@@ -92,7 +91,9 @@ export function useSliderGallery() {
         .maybeSingle();
 
       if (error) {
-        toast({ title: "Failed to load slider", variant: "destructive" });
+        toast.error("Failed to load slider", {
+          icon: <TbGhost3 className="h-5 w-5" />,
+        });
         setSliderIsLoading(false);
         return;
       }
@@ -104,27 +105,21 @@ export function useSliderGallery() {
     }
 
     load();
-  }, [toast, isGuest]);
+  }, [isGuest]);
 
   /* ---------- save ---------- */
 
   async function saveSliderGallery() {
       if (isGuest) {
-        toast({
-          title: "Guest mode",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Saving is disabled for guest users.
-              </span>
-            </div>
-          ),
+        toast("Guest mode", {
+          description: "Saving is disabled for guest users.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
 
     setSliderLoading(true);
+    const version = Date.now().toString();
 
     const updates: Partial<SliderGallery> = {};
 
@@ -143,7 +138,7 @@ export function useSliderGallery() {
       }
 
       if (touched && currentValue === null && previousValue && !file) {
-        const previousFileName = previousValue.split("/").pop();
+        const previousFileName = previousValue.split("/").pop()?.split("?")[0];
         if (previousFileName) {
           await supabase.storage.from(BUCKET).remove([previousFileName]);
         }
@@ -156,10 +151,12 @@ export function useSliderGallery() {
 
         const { error } = await supabase.storage
           .from(BUCKET)
-          .upload(fileName, file, { upsert: true });
+          .upload(fileName, file, { upsert: true, cacheControl: "31536000" });
 
         if (error) {
-          toast({ title: "Upload failed", variant: "destructive" });
+          toast.error("Upload failed", {
+            icon: <TbGhost3 className="h-5 w-5" />,
+          });
           setSliderLoading(false);
           return;
         }
@@ -168,7 +165,7 @@ export function useSliderGallery() {
           .from(BUCKET)
           .getPublicUrl(fileName);
 
-        updates[key] = data.publicUrl;
+        updates[key] = `${data.publicUrl}?v=${version}`;
       }
     }
 
@@ -186,7 +183,9 @@ export function useSliderGallery() {
     setSliderLoading(false);
 
     if (error) {
-      toast({ title: "Save failed", variant: "destructive" });
+      toast.error("Save failed", {
+        icon: <TbGhost3 className="h-5 w-5" />,
+      });
       return;
     }
 
@@ -195,17 +194,10 @@ export function useSliderGallery() {
     setSliderGallery(nextGallery);
     setPersistedSliderGallery(nextGallery);
 
-     toast({
-          title: "Settings saved",
-          description: (
-            <div className="flex items-center gap-2">
-              <FaRegFloppyDisk className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Your changes were saved successfully.
-              </span>
-            </div>
-          ),
-        });
+    toast("Settings saved", {
+      description: "Your changes were saved successfully.",
+      icon: <FaRegFloppyDisk className="h-5 w-5" />,
+    });
   }
 
   return {

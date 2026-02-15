@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { TbGhost3 } from "react-icons/tb";
 import { useIsGuest } from "@/lib/auth/guest";
@@ -27,7 +27,6 @@ const EMPTY: ThumbGallery = {
 type FileMap = Partial<Record<keyof ThumbGallery, File | null>>;
 
 export function useThumbGallery() {
-  const { toast } = useToast();
   const isGuest = useIsGuest();
 
   const [gallery, setGallery] = useState<ThumbGallery>(EMPTY);
@@ -58,7 +57,9 @@ export function useThumbGallery() {
         .maybeSingle();
 
       if (error) {
-        toast({ title: "Failed to load gallery", variant: "destructive" });
+        toast.error("Failed to load gallery", {
+          icon: <TbGhost3 className="h-5 w-5" />,
+        });
         setIsLoading(false);
         return;
       }
@@ -70,7 +71,7 @@ export function useThumbGallery() {
     }
 
     load();
-  }, [toast, isGuest]);
+  }, [isGuest]);
 
   /* ---------- image change ---------- */
   function setImage(
@@ -87,21 +88,15 @@ export function useThumbGallery() {
   /* ---------- save ---------- */
   async function save() {
       if (isGuest) {
-        toast({
-          title: "Guest mode",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Saving is disabled for guest users.
-              </span>
-            </div>
-          ),
+        toast("Guest mode", {
+          description: "Saving is disabled for guest users.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
 
     setLoading(true);
+    const version = Date.now().toString();
     const updates: Partial<ThumbGallery> = {};
 
     for (const key of Object.keys(gallery) as (keyof ThumbGallery)[]) {
@@ -112,7 +107,7 @@ export function useThumbGallery() {
 
       // remove
       if (touched && currentValue === null && previousValue && !file) {
-        const previousFileName = previousValue.split("/").pop();
+        const previousFileName = previousValue.split("/").pop()?.split("?")[0];
         if (previousFileName) {
           await supabase.storage.from(BUCKET).remove([previousFileName]);
         }
@@ -126,11 +121,13 @@ export function useThumbGallery() {
 
         const { error } = await supabase.storage
           .from(BUCKET)
-          .upload(fileName, file, { upsert: true });
+          .upload(fileName, file, { upsert: true, cacheControl: "31536000" });
 
         if (error) {
           setLoading(false);
-          toast({ title: "Upload failed", variant: "destructive" });
+          toast.error("Upload failed", {
+            icon: <TbGhost3 className="h-5 w-5" />,
+          });
           return;
         }
 
@@ -138,7 +135,7 @@ export function useThumbGallery() {
           .from(BUCKET)
           .getPublicUrl(fileName);
 
-        updates[key] = data.publicUrl;
+        updates[key] = `${data.publicUrl}?v=${version}`;
       }
     }
 
@@ -156,7 +153,9 @@ export function useThumbGallery() {
     setLoading(false);
 
     if (error) {
-      toast({ title: "Save failed", variant: "destructive" });
+      toast.error("Save failed", {
+        icon: <TbGhost3 className="h-5 w-5" />,
+      });
       return;
     }
 
@@ -165,17 +164,10 @@ export function useThumbGallery() {
     setGallery(nextGallery);
     setPersistedGallery(nextGallery);
 
-    toast({
-          title: "Media saved",
-          description: (
-            <div className="flex items-center gap-2">
-              <FaRegFloppyDisk className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Changes saved successfully.
-              </span>
-            </div>
-          ),
-        });
+    toast("Media saved", {
+      description: "Changes saved successfully.",
+      icon: <FaRegFloppyDisk className="h-5 w-5" />,
+    });
   }
 
   return {

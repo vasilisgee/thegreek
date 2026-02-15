@@ -17,20 +17,23 @@ type AdminStatus =
   | "unauthorized";
 
 export function useAdminSession() {
-  const [status, setStatus] = useState<AdminStatus>("loading");
+  const [status, setStatus] = useState<AdminStatus>(() =>
+    isGuestMode() ? "guest" : "loading",
+  );
   const [profile, setProfile] = useState<AdminProfile | null>(null);
 
   useEffect(() => {
     if (isGuestMode()) {
-      setStatus("guest");
       return;
     }
 
     let mounted = true;
 
-    const syncSession = async () => {
+    const syncSession = async (withLoading = false) => {
       if (!mounted) return;
-      setStatus("loading");
+      if (withLoading) {
+        setStatus("loading");
+      }
 
       const { data, error } = await supabase.auth.getUser();
       if (error || !data.user) {
@@ -59,15 +62,27 @@ export function useAdminSession() {
       }
     };
 
-    syncSession();
+    syncSession(true);
 
-    const { data } = supabase.auth.onAuthStateChange(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
       if (isGuestMode()) {
         setStatus("guest");
         setProfile(null);
         return;
       }
-      syncSession();
+
+      if (event === "SIGNED_OUT") {
+        setProfile(null);
+        setStatus("unauthenticated");
+        return;
+      }
+
+      if (event === "SIGNED_IN") {
+        syncSession(false);
+        return;
+      }
+
+      // Ignore token refresh/focus-driven events to avoid remounting admin pages.
     });
 
     return () => {

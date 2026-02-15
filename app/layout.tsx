@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { supabase } from "@/lib/supabase/client";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const geom = localFont({
+  src: [
+    {
+      path: "../public/fonts/Geom-VariableFont_wght.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/Geom-Italic-VariableFont_wght.woff2",
+      weight: "100 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-neo",
+  display: "swap",
 });
 
 /* ================= METADATA ================= */
@@ -49,17 +56,13 @@ export default async function RootLayout({
     .select("google_analytics")
     .eq("id", "00000000-0000-0000-0000-000000000001")
     .maybeSingle();
+  const hasGoogleAnalytics = Boolean(data?.google_analytics?.trim());
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geom:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-
         {/* Google Analytics */}
-        {data?.google_analytics && (
+        {hasGoogleAnalytics && (
           <>
             <script
               async
@@ -67,7 +70,7 @@ export default async function RootLayout({
             />
             <script
               dangerouslySetInnerHTML={{
-                __html: data.google_analytics,
+                __html: data?.google_analytics ?? "",
               }}
             />
           </>
@@ -75,7 +78,7 @@ export default async function RootLayout({
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-neo frontend-theme`}
+        className={`${geom.variable} antialiased font-neo`}
       >
         {children}
       </body>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { TbGhost3 } from "react-icons/tb";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { useIsGuest } from "@/lib/auth/guest";
@@ -20,7 +20,6 @@ export type WebsiteBasics = {
 };
 
 export function useWebsiteBasics() {
-  const { toast } = useToast();
   const isGuest = useIsGuest();
 
   const [websiteBasics, setWebsiteBasics] = useState<WebsiteBasics>({
@@ -80,17 +79,9 @@ export function useWebsiteBasics() {
 
       if (error) {
         console.error(error);
-        toast({
-          title: "Failed to load",
-          variant: "destructive",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs">
-                Uh oh, something went wrong.
-              </span>
-            </div>
-          ),
+        toast.error("Failed to load", {
+          description: "Uh oh, something went wrong.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         setIsLoading(false);
         return;
@@ -110,25 +101,19 @@ export function useWebsiteBasics() {
     }
 
     loadWebsiteBasics();
-  }, [toast, isGuest]);
+  }, [isGuest]);
 
   async function saveWebsiteBasics() {
       if (isGuest) {
-        toast({
-          title: "Guest mode",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Saving is disabled for guest users.
-              </span>
-            </div>
-          ),
+        toast("Guest mode", {
+          description: "Saving is disabled for guest users.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
 
     setLoading(true);
+    const version = Date.now().toString();
 
     let metaImageUrl = websiteBasics.meta_image;
 
@@ -142,13 +127,12 @@ export function useWebsiteBasics() {
     if (metaImageFile) {
       const { error: uploadError } = await supabase.storage
         .from(BUCKET)
-        .upload(FILE_NAME, metaImageFile, { upsert: true });
+        .upload(FILE_NAME, metaImageFile, { upsert: true, cacheControl: "31536000" });
 
       if (uploadError) {
         setLoading(false);
-        toast({
-          title: "Image upload failed",
-          variant: "destructive",
+        toast.error("Image upload failed", {
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
@@ -157,7 +141,7 @@ export function useWebsiteBasics() {
         .from(BUCKET)
         .getPublicUrl(FILE_NAME);
 
-      metaImageUrl = data.publicUrl;
+      metaImageUrl = `${data.publicUrl}?v=${version}`;
     }
 
     const { error } = await supabase.from("site_settings").upsert({
@@ -171,9 +155,8 @@ export function useWebsiteBasics() {
 
     if (error) {
       console.error(error);
-      toast({
-        title: "Failed to save",
-        variant: "destructive",
+      toast.error("Failed to save", {
+        icon: <TbGhost3 className="h-5 w-5" />,
       });
       return;
     }
@@ -184,16 +167,9 @@ export function useWebsiteBasics() {
     }));
     setMetaImageFile(null);
 
-    toast({
-      title: "Settings saved",
-      description: (
-        <div className="flex items-center gap-2">
-          <FaRegFloppyDisk className="h-5 w-5" />
-          <span className="text-xs text-muted-foreground">
-            Your changes were saved successfully.
-          </span>
-        </div>
-      ),
+    toast("Settings saved", {
+      description: "Your changes were saved successfully.",
+      icon: <FaRegFloppyDisk className="h-5 w-5" />,
     });
   }
 

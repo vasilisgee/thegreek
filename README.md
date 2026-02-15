@@ -1,14 +1,21 @@
-# theGreek — GSAP One-Page Site + Admin Panel
+# theGreek — One-Page Business Site + Admin Panel
 
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
-![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat&logo=greensock&logoColor=0A0A0A)
+![shadcn/ui](https://img.shields.io/badge/shadcn/ui-111111?style=flat&logo=shadcnui&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/Postgres-4169E1?style=flat&logo=postgresql&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
 
-A minimal one-page restaurant website template built with **React**, **Next.js App Router** and **GSAP**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, translations and appearance.
+A minimal one-page restaurant website template built with **React** and **Next.js App Router**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, translations and appearance.
 
 [View it Live](https://thegreekrestaurant.vercel.app/) • [Admin Panel](https://thegreekrestaurant.vercel.app/login)
+
+## Project Purpose
+
+This project demonstrates a lightweight, one-page marketing website with a simple, CMS-like admin panel that allows non-technical users to easily manage website content, media, and translations. The frontend is designed to present all essential information a small business needs in a clean, modern layout. When deployed on Vercel and Supabase free plans, the project can run with zero hosting expenses, making it a practical and cost-effective solution for small businesses.
 
 
 ## Highlights
@@ -17,15 +24,32 @@ A minimal one-page restaurant website template built with **React**, **Next.js A
 - Google OAuth login with an email whitelist
 - Multi-language content support
 - Supabase storage integration for media uploads
-- GSAP-powered animations and a customizable theme
+- Smooth UI transitions and a customizable theme
 
 ## Tech Stack
-- **Next.js** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **shadcn/ui**
-- **GSAP**
-- **Supabase** (Auth, Database, Storage)
+
+### Frontend (One-Page Website)
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- Embla Carousel
+- React Icons
+
+### Backend (Admin Panel)
+- shadcn/ui
+- Supabase Auth (Google OAuth + PKCE)
+- Supabase Postgres
+- Supabase Storage
+- Email whitelist access control (`NEXT_PUBLIC_ADMIN_EMAILS`)
+- Idle logout session control
+
+### Custom shadcn Components 
+- `MediaCard` - Media upload block with image/video tabs, preview, and replace/remove actions.
+- `ImageCard` - Reusable image uploader with live preview, loading skeleton, and clear/replace controls.
+- `FileCard` - File uploader for admin assets with type validation, filename preview, and remove action.
+- `LanguageTabs` (Multilingual card) - Language switcher UI for editing translated content across multiple locales.
+- `Business Menu Catalogue Creation & Management` - Admin workflow to create categories and menu items, edit multilingual content, upload item images, reorder via drag and drop, and save or delete entries.
 
 ## Local Setup
 1. Install dependencies

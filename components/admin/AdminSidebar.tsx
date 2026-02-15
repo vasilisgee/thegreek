@@ -5,9 +5,10 @@ import { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { FiFileText } from "react-icons/fi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
-import { MdOutlineSettingsInputComponent } from "react-icons/md";
+import { ImSpoonKnife } from "react-icons/im";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { LuPaintbrushVertical } from "react-icons/lu";
+import { LuContactRound } from "react-icons/lu";
 
 type Props = {
   host: string;
@@ -19,11 +20,9 @@ export function AdminSidebar({ host, onNavigate }: Props) {
     <div className="flex h-auto w-full md:h-full flex-col bg-sidebar">
       {/* BRAND */}
       <div className="h-16 flex items-center px-6 border-b border-border">
-        <a href="/" target="_blank">
-          <strong className="font-extrabold bg-brand-primary text-white px-2 py-1 rounded-lg text-lg">
-            theGreek
-          </strong>
-        </a>
+        <strong className="font-extrabold bg-brand-primary text-white px-2 py-1 rounded-lg text-lg pointer-events-none">
+          theGreek
+        </strong>
         <span className="ml-2 text-sm font-semibold text-muted-foreground">
           Admin
         </span>
@@ -50,7 +49,7 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               icon={<FiFileText />}
               onNavigate={onNavigate}
             >
-              Texts
+              Website Texts
             </NavItem>
 
             <NavItem
@@ -58,15 +57,23 @@ export function AdminSidebar({ host, onNavigate }: Props) {
               icon={<MdOutlinePhotoSizeSelectActual />}
               onNavigate={onNavigate}
             >
-              Media
+              Photos & Media
+            </NavItem>
+
+            <NavItem
+              href="/admin/catalogue"
+              icon={<ImSpoonKnife />}
+              onNavigate={onNavigate}
+            >
+              Menu Catalogue
             </NavItem>
 
             <NavItem
               href="/admin/general"
-              icon={<MdOutlineSettingsInputComponent />}
+              icon={<LuContactRound />}
               onNavigate={onNavigate}
             >
-              General
+              Basic Settings
             </NavItem>
 
             <NavItem

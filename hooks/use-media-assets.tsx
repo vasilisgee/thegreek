@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { TbGhost3 } from "react-icons/tb";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { useIsGuest } from "@/lib/auth/guest";
@@ -65,7 +65,6 @@ const EMPTY_MEDIA: MediaAssets = {
 };
 
 export function useMediaAssets() {
-  const { toast } = useToast();
   const isGuest = useIsGuest();
 
   const [media, setMedia] = useState<MediaAssets>(EMPTY_MEDIA);
@@ -110,15 +109,9 @@ export function useMediaAssets() {
         .maybeSingle();
 
       if (error) {
-        toast({
-          title: "Failed to load media",
-          variant: "destructive",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs">Something went wrong.</span>
-            </div>
-          ),
+        toast.error("Failed to load media", {
+          description: "Something went wrong.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         setIsLoading(false);
         return;
@@ -131,27 +124,21 @@ export function useMediaAssets() {
     }
 
     load();
-  }, [toast, isGuest]);
+  }, [isGuest]);
 
   /* ---------- SAVE ---------- */
 
   async function save() {
       if (isGuest) {
-        toast({
-          title: "Guest mode",
-          description: (
-            <div className="flex items-center gap-2">
-              <TbGhost3 className="h-5 w-5" />
-              <span className="text-xs text-muted-foreground">
-                Saving is disabled for guest users.
-              </span>
-            </div>
-          ),
+        toast("Guest mode", {
+          description: "Saving is disabled for guest users.",
+          icon: <TbGhost3 className="h-5 w-5" />,
         });
         return;
       }
 
     setLoading(true);
+    const version = Date.now().toString();
 
     const updates: Partial<MediaAssets> = {};
 
@@ -162,7 +149,7 @@ export function useMediaAssets() {
       const touched = key in files || currentValue !== previousValue;
 
       if (touched && currentValue === null && previousValue && !file) {
-        const previousFileName = previousValue.split("/").pop();
+        const previousFileName = previousValue.split("/").pop()?.split("?")[0];
         if (previousFileName) {
           await supabase.storage.from(BUCKET).remove([previousFileName]);
         }
@@ -173,11 +160,13 @@ export function useMediaAssets() {
         const fileName = `${key}.${file.name.split(".").pop()}`;
         const { error } = await supabase.storage
           .from(BUCKET)
-          .upload(fileName, file, { upsert: true });
+          .upload(fileName, file, { upsert: true, cacheControl: "31536000" });
 
         if (error) {
           setLoading(false);
-          toast({ title: "Upload failed", variant: "destructive" });
+          toast.error("Upload failed", {
+            icon: <TbGhost3 className="h-5 w-5" />,
+          });
           return;
         }
 
@@ -185,7 +174,7 @@ export function useMediaAssets() {
           .from(BUCKET)
           .getPublicUrl(fileName);
 
-        updates[key] = data.publicUrl;
+        updates[key] = `${data.publicUrl}?v=${version}`;
       }
     }
 
@@ -199,7 +188,9 @@ export function useMediaAssets() {
 
     if (error) {
       console.error(error);
-      toast({ title: "Save failed", variant: "destructive" });
+      toast.error("Save failed", {
+        icon: <TbGhost3 className="h-5 w-5" />,
+      });
       return;
     }
 
@@ -208,16 +199,9 @@ export function useMediaAssets() {
     setMedia(nextMedia);
     setPersistedMedia(nextMedia);
 
-    toast({
-      title: "Media saved",
-      description: (
-        <div className="flex items-center gap-2">
-          <FaRegFloppyDisk className="h-5 w-5" />
-          <span className="text-xs text-muted-foreground">
-            Changes saved successfully.
-          </span>
-        </div>
-      ),
+    toast("Media saved", {
+      description: "Changes saved successfully.",
+      icon: <FaRegFloppyDisk className="h-5 w-5" />,
     });
   }
 

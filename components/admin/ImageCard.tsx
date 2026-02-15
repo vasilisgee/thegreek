@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RiUploadCloud2Line } from "react-icons/ri";
@@ -13,6 +13,11 @@ type ImageCardProps = {
   file: File | null;              // local file (not uploaded yet)
   onFileChange: (file: File | null) => void;
   isLoading?: boolean;
+  hideHeader?: boolean;
+  size?: "default" | "compact";
+  previewFit?: "contain" | "cover";
+  heightClassName?: string;
+  previewHeightClassName?: string;
 };
 
 export default function ImageCard({
@@ -22,9 +27,19 @@ export default function ImageCard({
   file,
   onFileChange,
   isLoading = false,
+  hideHeader = false,
+  size = "default",
+  previewFit = "contain",
+  heightClassName,
+  previewHeightClassName,
 }: ImageCardProps) {
+  const inputId = useId();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
+  const imageHeightClassName = size === "compact" ? "h-32" : "h-60";
+  const isCompact = size === "compact";
+  const resolvedHeightClassName =
+    previewHeightClassName ?? heightClassName ?? imageHeightClassName;
 
   useEffect(() => {
     if (file) {
@@ -67,22 +82,28 @@ export default function ImageCard({
 
   return (
     <div className="space-y-1">
-      {isLoading ? (
+      {!hideHeader && (
         <>
-          <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
-        </>
-      ) : (
-        <>
-          <h4 className="text-sm font-medium">{title}</h4>
-          {description && (
-            <p className="text-xs text-muted-foreground pb-2">
-              {description}
-            </p>
+          {isLoading ? (
+            <>
+              <Skeleton className="w-40 h-6 rounded-md animate-pulse [animation-duration:2s] bg-muted/80 mb-3" />
+            </>
+          ) : (
+            <>
+              <h4 className="text-sm font-medium inline-block mb-2">{title}</h4>
+              {description && (
+                <p className="text-xs text-muted-foreground pb-2">
+                  {description}
+                </p>
+              )}
+            </>
           )}
         </>
       )}
 
-      <div className="relative h-60 rounded-lg border border-dashed border-border bg-muted/40 flex items-center justify-center overflow-hidden">
+      <div
+        className={`relative ${resolvedHeightClassName} rounded-lg flex items-center justify-center overflow-hidden`}
+      >
         {previewUrl ? (
           <>
             {!isPreviewLoaded && (
@@ -93,34 +114,56 @@ export default function ImageCard({
             <img
               src={previewUrl}
               alt={title}
-              className="absolute inset-0 w-full h-full object-contain p-2"
+              className={
+                isCompact
+                  ? "absolute inset-0 h-full w-full object-cover"
+                  : previewFit === "cover"
+                    ? "absolute inset-0 h-full w-full object-cover"
+                    : "absolute inset-0 h-full w-full object-contain p-2"
+              }
               onLoad={() => setIsPreviewLoaded(true)}
               onError={() => setIsPreviewLoaded(true)}
               style={{ opacity: isPreviewLoaded ? 1 : 0 }}
             />
 
-            <Button
-              type="button"
-              size="icon"
-              variant="secondary"
-              onClick={handleClear}
-              className="absolute top-2 right-2"
-            >
-              <X className="h-4 w-4" />
-            </Button>
+            {isCompact ? (
+              <label
+                htmlFor={inputId}
+                className="absolute inset-0 cursor-pointer"
+                aria-label="Replace image"
+              />
+            ) : (
+              <Button
+                type="button"
+                size="icon"
+                variant="secondary"
+                onClick={handleClear}
+                className="absolute top-2 w-7 h-7 right-2"
+              >
+                <X className="h-3 w-3" />
+              </Button>
+            )}
           </>
         ) : (
-          <label className="flex flex-col items-center gap-1 cursor-pointer text-muted-foreground font-semibold text-xs">
-            <RiUploadCloud2Line  className="h-7 w-7" />
-            Upload Image
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleChange}
-              className="hidden"
-            />
+          <label
+            htmlFor={inputId}
+            className={
+              isCompact
+                ? "flex h-full w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border bg-muted/40 text-xs font-semibold text-muted-foreground"
+                : "flex h-full w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border bg-muted/40 text-xs font-semibold text-muted-foreground"
+            }
+          >
+            <RiUploadCloud2Line className={isCompact ? "h-6 w-6" : "h-7 w-7"} />
+            Upload image
           </label>
         )}
+        <input
+          id={inputId}
+          type="file"
+          accept="image/*"
+          onChange={handleChange}
+          className="hidden"
+        />
       </div>
     </div>
   );

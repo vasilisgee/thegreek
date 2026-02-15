@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "General Settings",
+  title: "Basic Settings",
 };
 
 export default function AdminGeneralLayout({
