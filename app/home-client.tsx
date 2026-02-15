@@ -816,7 +816,7 @@ export default function HomeClient({
         </section>
 
         {/* ================= ABOUT ================= */}
-        <section className="section-about min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20">
+        <section className="section-about flex items-center px-5 pt-15 pb-10 md:px-10 md:pt-28 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">
             <div className="about-left self-end flex h-full flex-col justify-end">
               <h2
@@ -867,7 +867,7 @@ export default function HomeClient({
         </section>
 
         {/* ================= MENU ================= */}
-        <section className="section-menu min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20">
+        <section className="section-menu flex items-center px-5 pt-5 pb-5 md:px-10 md:pt-20 md:pb-12">
           <div className="w-full max-w-6xl mx-auto">
             <h2
               className="text-4xl md:text-6xl font-normal text-brand-primary text-center max-w-3xl mx-auto tracking-tight mb-2"
@@ -883,7 +883,7 @@ export default function HomeClient({
 
             {catalogueCategories.length > 0 ? (
               <>
-                <div className="rounded-2xl min-h-[480px] select-none">
+                <div className="rounded-2xl md:min-h-[480px] select-none">
                   <div className="mb-5 overflow-x-auto pr-4 md:pr-0 md:overflow-visible">
                     <div className="mx-auto flex w-max flex-nowrap md:flex-wrap justify-start md:justify-center rounded-full bg-brand-primary p-1 shadow-xl gap-1">
                       {catalogueCategories.map((category, index) => (
@@ -1049,6 +1049,8 @@ export default function HomeClient({
 
               <a
                 href={t("gallery_button_url")}
+                target="_blank"
+                rel="noopener noreferrer"
                 className=" inline-flex slider-about items-center justify-center px-8 py-3 rounded-full bg-brand-primary text-white font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-2xl shadow-xl cursor-pointer"
               >
                 {t("gallery_button_text")}
@@ -1125,10 +1127,9 @@ export default function HomeClient({
         {/* ================= CONTACT ================= */}
         <section
           className="section-contact
-        min-h-screen
         flex items-center
         px-5 md:px-10
-        py-16 md:py-20
+        pt-5 pb-15 md:pt-20 md:pb-28
         "
         >
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">
@@ -1350,7 +1351,7 @@ export default function HomeClient({
         </section>
 
         {/* ================= FOOTER ================= */}
-        <section className="section-footer min-h-screen bg-brand-primary text-white px-5 md:px-10 pb-20 pt-30 flex items-center justify-center">
+        <section className="section-footer min-h-screen bg-brand-primary text-white px-5 md:px-10 pb-20 pt-15 md:pt-30 flex items-center justify-center">
           <div className="contact-inner text-center w-full ">
             <div className="mb-16 w-full max-w-6xl mx-auto">
               <div className="text-center mb-10">
