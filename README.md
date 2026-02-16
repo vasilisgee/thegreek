@@ -11,7 +11,7 @@
 
 A minimal one-page restaurant website template built with **React** and **Next.js App Router**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, translations and appearance.
 
-[View it Live](https://thegreekrestaurant.vercel.app/) • [Admin Panel](https://thegreekrestaurant.vercel.app/login)
+💻[View it Live](https://thegreekrestaurant.vercel.app/)   🎛[Admin Panel](https://thegreekrestaurant.vercel.app/login)
 
 ## Project Purpose
 
