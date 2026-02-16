@@ -19,12 +19,12 @@ This project demonstrates a lightweight, one-page marketing website with a simpl
 
 
 ## Highlights
-- Modern marketing site for small businesses with hero media, galleries and contact information
-- CMS-style admin dashboard for frontend text, photos, media, and appearance settings
-- Google OAuth login with an email whitelist
-- Multi-language content support
-- Supabase storage integration for media uploads
-- Smooth UI transitions and a customizable theme
+- One-page marketing website built with Next.js App Router
+- Custom lightweight CMS for content, media, and translations
+- Secure Google OAuth authentication with email whitelisting
+- Role-based access control (admin / read-only guest)
+- Supabase integration for database, storage, and auth
+- Optimized for zero-cost deployment on free hosting plans
 
 ## Tech Stack
 
@@ -38,10 +38,10 @@ This project demonstrates a lightweight, one-page marketing website with a simpl
 
 ### Backend (Admin Panel)
 - shadcn/ui
-- Supabase Auth (Google OAuth + PKCE)
+- Supabase Auth (Google OAuth)
 - Supabase Postgres
 - Supabase Storage
-- Email whitelist access control (`NEXT_PUBLIC_ADMIN_EMAILS`)
+- Admin access control (`NEXT_PUBLIC_ADMIN_EMAILS`)
 - Idle logout session control
 
 ### Custom shadcn Components 
