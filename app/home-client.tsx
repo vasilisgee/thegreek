@@ -281,7 +281,7 @@ export default function HomeClient({
   const [isHeaderMenuClosing, setIsHeaderMenuClosing] = useState(false);
   const [shouldLoadHeroVideo, setShouldLoadHeroVideo] = useState(false);
   const [isHeroVideoReady, setIsHeroVideoReady] = useState(false);
-  const [isMobileLogoHidden, setIsMobileLogoHidden] = useState(false);
+  const [isHeaderBrandHidden, setIsHeaderBrandHidden] = useState(false);
   const lastScrollYRef = useRef(0);
 
   const closeHeaderMenu = useCallback(() => {
@@ -328,11 +328,6 @@ export default function HomeClient({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!isMobileViewport) {
-      setIsMobileLogoHidden(false);
-      return;
-    }
-
     let ticking = false;
     lastScrollYRef.current = window.scrollY;
 
@@ -341,11 +336,11 @@ export default function HomeClient({
       const deltaY = currentY - lastScrollYRef.current;
 
       if (currentY <= 16) {
-        setIsMobileLogoHidden(false);
+        setIsHeaderBrandHidden(false);
       } else if (deltaY > 4) {
-        setIsMobileLogoHidden(true);
+        setIsHeaderBrandHidden(true);
       } else if (deltaY < -4) {
-        setIsMobileLogoHidden(false);
+        setIsHeaderBrandHidden(false);
       }
 
       lastScrollYRef.current = currentY;
@@ -362,7 +357,7 @@ export default function HomeClient({
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [isMobileViewport]);
+  }, []);
 
   useEffect(() => {
     if (!isHeaderMenuOpen) return;
@@ -662,8 +657,8 @@ export default function HomeClient({
         <header className="fixed top-0 left-0 w-full z-50 ">
           <div className="p-3 relative flex items-center justify-between gap-4">
             <div
-              className={`text-2xl font-bold tracking-tight transition-transform duration-200 ease-out md:translate-y-0 ${
-                isMobileLogoHidden
+              className={`text-2xl font-bold tracking-tight transition-transform duration-200 ease-out ${
+                isHeaderBrandHidden
                   ? "-translate-y-20 pointer-events-none"
                   : "translate-y-0"
               }`}
@@ -683,7 +678,11 @@ export default function HomeClient({
 
             <div className="flex items-center gap-3 md:gap-6">
               <Link
-                className="bg-white text-brand-primary px-5 py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white/90 transition shadow-xl hidden md:block"
+                className={`bg-white text-brand-primary px-5 py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white/90 transition shadow-xl hidden md:block transition-transform duration-200 ease-out ${
+                  isHeaderBrandHidden
+                    ? "-translate-y-20 pointer-events-none"
+                    : "translate-y-0"
+                }`}
                 href="/login"
                 target="_blank"
               >
@@ -691,8 +690,8 @@ export default function HomeClient({
               </Link>
 
               <div
-                className={`flex rounded-full bg-brand-primary p-1 shadow-xl transition-transform duration-200 ease-out md:translate-y-0 ${
-                  isMobileLogoHidden
+                className={`flex rounded-full bg-brand-primary p-1 shadow-xl transition-transform duration-200 ease-out ${
+                  isHeaderBrandHidden
                     ? "-translate-y-20 pointer-events-none"
                     : "translate-y-0"
                 }`}
@@ -844,7 +843,7 @@ export default function HomeClient({
               aria-hidden="true"
             />
           ) : null}
-          <div className="absolute inset-0 bg-[#151A3F]/60 z-10" />
+          <div className="hero-overlay-depth absolute inset-0 z-10" />
 
           <div className="hero-content relative z-20 h-full flex flex-col items-center justify-center text-center text-white px-6 m">
             <div className="relative z-20 h-full flex flex-col items-center justify-center text-center text-white px-0 sm:px-6">
@@ -1338,7 +1337,7 @@ export default function HomeClient({
                         <textarea
                           name="contact_message"
                           placeholder={isSV ? "Meddelande" : "Message"}
-                          rows={5}
+                          rows={7}
                           className="w-full rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/70 px-4 py-3 text-sm focus:outline-hidden focus:ring-2 focus:ring-white/40"
                         />
 
@@ -1378,7 +1377,7 @@ export default function HomeClient({
                             setContactSubmitted(false);
                             setActiveBusinessPanel("contact");
                           }}
-                          className="mt-6 border border-white/70 text-white px-5 py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white hover:text-[#151A3F] transition shadow-xl inline-flex items-center justify-center cursor-pointer"
+                          className="mt-6 bg-white text-brand-primary px-5 py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-white/90 transition-all duration-300 hover:-translate-y-0.5 shadow-xl inline-flex items-center justify-center cursor-pointer"
                         >
                           {isSV ? "Stäng" : "Close"}
                         </button>

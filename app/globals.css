@@ -264,6 +264,21 @@ h3 strong{
   line-height: 1.1;
 }
 
+.hero-overlay-depth {
+  background:
+    radial-gradient(
+      110% 90% at 50% 0%,
+      rgba(61, 78, 170, 0.22) 0%,
+      rgba(61, 78, 170, 0) 58%
+    ),
+    linear-gradient(
+      118deg,
+      rgba(21, 26, 63, 0.82) 0%,
+      rgba(21, 26, 63, 0.56) 45%,
+      rgba(21, 26, 63, 0.82) 100%
+    );
+}
+
 .section-title-strong strong {
   font-weight: 300;
   font-style: italic;
