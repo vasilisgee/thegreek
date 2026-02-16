@@ -262,7 +262,7 @@ function ContentGrid({
           onChange={(v) => onChange("contact_title", v, lang)}
         />
         <LabeledInput
-          label="Footer title"
+          label="Reviews title"
           placeholder={placeholders.footerTitle}
           value={values.footer_title}
           onChange={(v) => onChange("footer_title", v, lang)}

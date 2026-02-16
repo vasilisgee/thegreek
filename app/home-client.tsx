@@ -806,7 +806,7 @@ export default function HomeClient({
               </p>
               <button
                 onClick={() => scrollToSection(".section-about", "smooth")}
-                className="hero-cta inline-flex h-12 w-12 items-center justify-center rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors cursor-pointer"
+                className="hero-cta inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/35 backdrop-blur-xs text-white hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
                 aria-label={isSV ? "Gå till Om oss" : "Go to About section"}
               >
                 <ArrowDown className="h-5 w-5" />
@@ -820,7 +820,7 @@ export default function HomeClient({
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">
             <div className="about-left self-end flex h-full flex-col justify-end">
               <h2
-                className="text-4xl md:text-6xl font-normal text-brand-primary mb-6 tracking-tight moving-text "
+                className="text-5xl md:text-6xl font-normal text-brand-primary mb-6 tracking-tight moving-text "
                 dangerouslySetInnerHTML={{ __html: t("about_title") }}
               />
 
@@ -847,6 +847,9 @@ export default function HomeClient({
             </div>
 
             <div className="about-card self-end bg-brand-primary text-white shadow-lg rounded-2xl p-5 pb-10 pt-10 md:pt-12 md:pb-12 md:p-12">
+              <div className="mb-3 w-fit rounded-md border border-white/20 bg-white/5 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-white">
+                {isSV ? "Om Oss" : "About Us"}
+              </div>
               <h3 className="text-2xl md:text-3xl font-light mb-5 tracking-tight">
                 {t("about_subtitle")}
               </h3>
@@ -854,36 +857,28 @@ export default function HomeClient({
                 className="text-md md:text-lg leading-relaxed font-light"
                 dangerouslySetInnerHTML={{ __html: t("about_text") }}
               />
-              <button
-                type="button"
-                onClick={() => scrollToSection(".section-menu", "smooth")}
-                className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-brand-primary font-semibold tracking-wide hover:bg-white/90 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
-              >
-                {isSV ? "Se vår meny" : "View Our Menu"}
-              </button>
-
             </div>
           </div>
         </section>
 
         {/* ================= MENU ================= */}
-        <section className="section-menu min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20">
+        <section className="section-menu min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20 bg-brand-backgroundGray">
           <div className="w-full max-w-6xl mx-auto">
+            <div className="mx-auto mb-2 w-fit rounded-md border border-[#e1e0dd] bg-white/80 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-brand-primary">
+              {isSV ? "Vår Meny" : "Our Menu"}
+            </div>
             <h2
-              className="text-4xl md:text-6xl font-normal text-brand-primary text-center max-w-3xl mx-auto tracking-tight mb-2"
+              className="text-5xl md:text-6xl font-normal text-brand-primary text-center max-w-3xl mx-auto tracking-tight mb-10"
               dangerouslySetInnerHTML={{
                 __html: isSV
                   ? "Smaker från vårt <strong>kök</strong>"
                   : "Flavors from our <strong>kitchen</strong>",
               }}
             />
-            <h3 className="text-2xl md:text-3xl font-light text-brand-primary text-center tracking-tight mb-10 ">
-              {isSV ? "Vår Meny" : "Our Menu"}
-            </h3>
 
             {catalogueCategories.length > 0 ? (
               <>
-                <div className="rounded-2xl md:min-h-[480px] select-none">
+                <div className="relative rounded-2xl select-none">
                   <div className="mb-5 overflow-x-auto pr-4 md:pr-0 md:overflow-visible">
                     <div className="mx-auto flex w-max flex-nowrap md:flex-wrap justify-start md:justify-center rounded-full bg-brand-primary p-1 shadow-xl gap-1">
                       {catalogueCategories.map((category, index) => (
@@ -893,7 +888,7 @@ export default function HomeClient({
                           onClick={() => {
                             handleMenuTabChange(index);
                           }}
-                          className={`px-3 py-1.5 text-sm md:text-base font-semibold rounded-full transition cursor-pointer ${
+                          className={`px-3 py-1.5 text-sm md:text-md font-semibold rounded-full transition cursor-pointer ${
                             index === activeMenuTabIndex
                               ? "bg-white text-brand-primary"
                               : "text-white opacity-80 hover:opacity-100"
@@ -944,8 +939,8 @@ export default function HomeClient({
                                 : ""
                             } flex-[0_0_82%] sm:flex-[0_0_46%] lg:flex-[0_0_31%] xl:flex-[0_0_22%]`}
                           >
-                            <article className="rounded-2xl overflow-hidden bg-white text-brand-primary shadow-md h-full transition-transform duration-500 ease-out hover:scale-[1.02]">
-                            <div className="h-44 bg-brand-backgroundGray relative overflow-hidden">
+                            <article className="rounded-2xl overflow-hidden bg-white text-brand-primary shadow-md h-full md:min-h-[360px] transition-transform duration-500 ease-out hover:scale-[1.02]">
+                            <div className="h-52 bg-brand-backgroundGray relative overflow-hidden">
                               {item.image ? (
                                 <Image
                                   src={toPublicUrl(item.image) ?? ""}
@@ -977,7 +972,7 @@ export default function HomeClient({
                               <h4 className="text-lg font-semibold tracking-tight">
                                 {itemTitle}
                               </h4>
-                              <p className="text-sm text-brand-primary/85 leading-relaxed">
+                              <p className="text-md text-brand-primary/85 leading-relaxed">
                                 {itemDescription}
                               </p>
                             </div>
@@ -1007,22 +1002,22 @@ export default function HomeClient({
                   ) : null}
 
                   {(canScrollMenuPrev || canScrollMenuNext) && (
-                    <div className="mt-5 hidden md:flex items-center justify-center gap-2">
+                    <div className="hidden md:flex absolute top-full left-1/2 -translate-x-1/2 mt-4 z-20 items-center justify-center gap-2">
                       <button
                         type="button"
                         onClick={() => menuEmblaApi?.scrollPrev()}
-                        className="w-10 h-10 rounded-full bg-white text-brand-primary inline-flex items-center justify-center hover:bg-white/90 shadow-sm transition cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white text-brand-primary inline-flex items-center justify-center hover:bg-white/90 shadow-sm transition cursor-pointer"
                         aria-label="Previous menu items"
                       >
-                        <ArrowLeft className="h-5 w-5" />
+                        <ArrowLeft className="h-4 w-4" />
                       </button>
                       <button
                         type="button"
                         onClick={() => menuEmblaApi?.scrollNext()}
-                        className="w-10 h-10 rounded-full bg-white text-brand-primary inline-flex items-center justify-center hover:bg-white/90 shadow-sm transition cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white text-brand-primary inline-flex items-center justify-center hover:bg-white/90 shadow-sm transition cursor-pointer"
                         aria-label="Next menu items"
                       >
-                        <ArrowRight className="h-5 w-5" />
+                        <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
                   )}
@@ -1039,22 +1034,32 @@ export default function HomeClient({
         </section>
 
         {/* ================= GALLERY ================= */}
-        <section className="section-slider min-h-screen flex items-center px-5 md:px-10 py-10 md:py-14">
-          <div className="relative w-full h-[90vh] min-h-[560px] md:min-h-[680px] overflow-hidden rounded-2xl shadow-xl grid grid-cols-1 lg:grid-cols-[30%_70%]">
-            <div className="flex flex-col items-center justify-center px-4 md:px-12 py-4 md:py-0 bg-brand-backgroundGray gap-6 h-auto">
+        <section className="section-slider mt-10 min-h-screen flex items-center px-5 md:px-10 py-10 md:py-14">
+          <div className="relative w-full h-[85vh] min-h-[560px] md:min-h-[680px] overflow-hidden rounded-2xl shadow-xl grid grid-cols-1 lg:grid-cols-[30%_70%]">
+            <div className="flex flex-col items-center justify-center px-4 md:px-12 py-4 md:py-0 bg-brand-backgroundGray h-auto">
+              <div className="self-center md:self-start mb-3 w-fit mt-5 rounded-md border border-[#e1e0dd] bg-white/80 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-brand-primary">
+                {isSV ? "Liveevenemang" : "Live Events"}
+              </div>
               <h2
-                className="text-4xl md:text-6xl font-normal text-brand-primary text-center leading-none slider-title tracking-tight moving-text "
+                className="md:self-start text-5xl md:text-6xl font-normal text-brand-primary text-center md:text-left leading-none slider-title tracking-tight moving-text mb-7"
                 dangerouslySetInnerHTML={{ __html: t("gallery_title") }}
               />
-
-              <a
-                href={t("gallery_button_url")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className=" inline-flex slider-about items-center justify-center px-8 py-3 rounded-full bg-brand-primary text-white font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-2xl shadow-xl cursor-pointer"
+              <p
+                key={`event-title-${activeEventsSlide}`}
+                className="max-w-md self-center md:self-start text-center md:text-left text-xl font-light text-brand-primary animate-[fadeIn_0.35s_ease-out]"
               >
-                {t("gallery_button_text")}
-              </a>
+                {stripHtml(activeEventTitle) || (isSV ? "Kommande liveevents" : "Upcoming live events")}
+              </p>
+
+                <a
+                  href={t("gallery_button_url")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-center md:self-start inline-flex slider-about items-center justify-center px-8 py-3 rounded-full bg-brand-primary text-white font-semibold tracking-wide transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5 hover:shadow-2xl shadow-xl cursor-pointer mt-7 mb-7"
+                >
+                  {t("gallery_button_text")}
+                </a>
+              
             </div>
 
             <div
@@ -1095,16 +1100,8 @@ export default function HomeClient({
                 </div>
               </div>
 
-              <div className="absolute left-4 md:left-5 bottom-5 z-20 max-w-[70%] hidden md:block">
-                {activeEventTitle && (
-                  <h4 className="text-white text-xs md:text-base font-light text-left bg-black/35 px-4 py-2 rounded-full backdrop-blur-xs">
-                    {activeEventTitle}
-                  </h4>
-                )}
-              </div>
-
               {sliderSlides.length > 1 && (
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-20 flex items-center gap-2">
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
                   {sliderSlides.map((_, index) => (
                     <button
                       key={`events-dot-${index}`}
@@ -1136,21 +1133,25 @@ export default function HomeClient({
           <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 md:gap-12 w-full max-w-6xl mx-auto">
             <div className="business-card self-end relative overflow-hidden bg-brand-primary text-white shadow-lg rounded-2xl p-5 pb-10 pt-10 md:pt-12 md:pb-12 md:p-12 order-2 md:order-1">
               <div className="relative z-10">
+                <div className="mb-5 w-fit rounded-md border border-white/20 bg-white/5 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-white">
+                  {isSV ? "Kontakta oss" : "Contact Us"}
+                </div>
+
                 <h3 className="text-2xl md:text-3xl font-light mb-5 tracking-tight">
-                  {isSV ? "Kontakta oss" : "Get in touch"}
+                  {isSV ? "Hör av dig" : "Get in touch"}
                 </h3>
 
                 {businessInfo?.address && (
                   <div className="flex items-start gap-4 mb-5">
                     <MapPin className="mt-1 h-6 w-6 opacity-80" />
-                    <p className="text-md md:text-lg">{businessInfo.address}</p>
+                    <p className="text-md md:text-lg leading-relaxed font-light">{businessInfo.address}</p>
                   </div>
                 )}
 
                 {businessInfo?.phone && (
                   <div className="flex items-center gap-4 mb-5">
                     <Phone className="h-6 w-6 opacity-80" />
-                    <p className="text-md md:text-lg">
+                    <p className="text-md md:text-lg leading-relaxed font-light">
                       <a href={`tel:${businessInfo.phone}`}>
                         {businessInfo.phone}
                       </a>
@@ -1159,9 +1160,9 @@ export default function HomeClient({
                 )}
 
                 {businessInfo?.email && (
-                  <div className="flex items-center gap-4 mb-8">
+                  <div className="flex items-center gap-4 mb-5">
                     <Mail className="h-6 w-6 opacity-80" />
-                    <p className="text-md md:text-lg">
+                    <p className="text-md md:text-lg leading-relaxed font-light">
                       {" "}
                       <a href={`mailto:${businessInfo.email}`}>
                         {businessInfo.email}
@@ -1174,11 +1175,11 @@ export default function HomeClient({
                   <div className="flex items-start gap-4">
                     <Clock3 className="mt-1 h-6 w-6 opacity-80" />
                     <div>
-                      <p className="text-xl font-semibold mb-1">
-                        {isSV ? "Öppettidery" : "Opening Hours"}
+                      <p className="text-md font-semibold my-1 text-white/70">
+                        {isSV ? "Öppettidery" : "Opening Hours:"}
                       </p>
                       <p
-                        className="text-md md:text-lg leading-relaxed"
+                        className="text-md md:text-lg leading-relaxed font-light"
                         dangerouslySetInnerHTML={{
                           __html: businessInfo.opening_hours,
                         }}
@@ -1340,7 +1341,7 @@ export default function HomeClient({
 
             <div className="map-container order-1 md:order-2">
               <h2
-                className="text-4xl md:text-6xl font-normal text-brand-primary mb-6 text-left md:text-right map-title tracking-tight moving-text "
+                className="text-5xl md:text-6xl font-normal text-brand-primary mb-6 text-left md:text-right map-title tracking-tight moving-text "
                 dangerouslySetInnerHTML={{ __html: t("contact_title") }}
               />
 
@@ -1356,18 +1357,19 @@ export default function HomeClient({
           <div className="contact-inner text-center w-full ">
             <div className="mb-16 w-full max-w-6xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-4xl md:text-5xl font-light mb-6 max-w-xl mx-auto tracking-tight moving-text">
-                  Words from <strong>Our Guests</strong>
-                </h2>
-                <div className="flex flex-wrap items-center justify-center gap-3 text-white/90">
-                  <p className="text-2xl md:text-3xl font-light text-center tracking-tight">
-                    Google Reviews
-                  </p>
+                <div className="mx-auto mb-4 w-fit rounded-md border border-white/20 bg-white/5 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-white">
+                  {isSV ? "Tripadvisor Recensioner" : "Tripadvisor Reviews"}
                 </div>
+                <h2
+                  className="text-5xl md:text-5xl font-light mb-10 max-w-xl mx-auto tracking-tight moving-text"
+                  dangerouslySetInnerHTML={{
+                    __html: t("footer_title"),
+                  }}
+                />
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 text-left">
-                <article className="rounded-2xl border border-white/20 bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
+                <article className="rounded-2xl bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="h-12 w-12 overflow-hidden rounded-full border border-white/20 bg-white/10">
                       <img
@@ -1377,7 +1379,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Sofia Lindgren</h4>
+                      <h4 className="font-semibold text-lg text-white">Sofia Lindgren</h4>
                       <p className="text-sm text-white/70">3 weeks ago</p>
                     </div>
                   </div>
@@ -1388,13 +1390,13 @@ export default function HomeClient({
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="leading-relaxed text-white/90">
-                    Warm service and really flavorful dishes. We shared three plates and each one
+                  <p className="text-md md:text-lg leading-relaxed font-light">
+                    Warm service and really flavorful dishes, each one
                     was well-seasoned with generous portions.
                   </p>
                 </article>
 
-                <article className="rounded-2xl border border-white/20 bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
+                <article className="rounded-2xl bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="h-12 w-12 overflow-hidden rounded-full border border-white/20 bg-white/10">
                       <img
@@ -1404,7 +1406,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Marcus Andreou</h4>
+                      <h4 className="font-semibold text-lg text-white">Marcus Andreou</h4>
                       <p className="text-sm text-white/70">1 month ago</p>
                     </div>
                   </div>
@@ -1415,13 +1417,13 @@ export default function HomeClient({
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="leading-relaxed text-white/90">
+                  <p className="text-md md:text-lg leading-relaxed font-light">
                     Came on a busy Friday and still got friendly, quick service. The grilled meat
                     was tender and the sides tasted fresh.
                   </p>
                 </article>
 
-                <article className="rounded-2xl border border-white/20 bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
+                <article className="rounded-2xl bg-white/5 p-6 transition-colors duration-300 hover:bg-white/10">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="h-12 w-12 overflow-hidden rounded-full border border-white/20 bg-white/10">
                       <img
@@ -1431,7 +1433,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Elin Karlsen</h4>
+                      <h4 className="font-semibold text-lg text-white">Elin Karlsen</h4>
                       <p className="text-sm text-white/70">5 months ago</p>
                     </div>
                   </div>
@@ -1442,7 +1444,7 @@ export default function HomeClient({
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="leading-relaxed text-white/90">
+                  <p className="text-md md:text-lg leading-relaxed font-light">
                     Cozy atmosphere, clean dining area, and great value for the portion size. We will definitely come back.
                   </p>
                 </article>
@@ -1451,7 +1453,11 @@ export default function HomeClient({
 
             <h3
               className="text-4xl md:text-4xl font-light mb-10 max-w-xl mx-auto tracking-tight moving-text "
-              dangerouslySetInnerHTML={{ __html: t("footer_title") }}
+              dangerouslySetInnerHTML={{
+                __html: isSV
+                  ? "Följ oss för<br /><strong>Nyheter</strong> & <strong>Evenemang:</strong>"
+                  : "Follow us for<br /><strong>News</strong> & <strong>Events:</strong>",
+              }}
             />
 
             {/* Social icons */}

@@ -238,6 +238,7 @@
 h2 strong,
 h3 strong{
   font-weight: 700;
+  display:inline-block
 }
 
 .map-frame div,
