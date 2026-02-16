@@ -281,6 +281,8 @@ export default function HomeClient({
   const [isHeaderMenuClosing, setIsHeaderMenuClosing] = useState(false);
   const [shouldLoadHeroVideo, setShouldLoadHeroVideo] = useState(false);
   const [isHeroVideoReady, setIsHeroVideoReady] = useState(false);
+  const [isMobileLogoHidden, setIsMobileLogoHidden] = useState(false);
+  const lastScrollYRef = useRef(0);
 
   const closeHeaderMenu = useCallback(() => {
     if (!isHeaderMenuOpen || isHeaderMenuClosing) return;
@@ -323,6 +325,44 @@ export default function HomeClient({
       mediaQuery.removeEventListener("change", onChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!isMobileViewport) {
+      setIsMobileLogoHidden(false);
+      return;
+    }
+
+    let ticking = false;
+    lastScrollYRef.current = window.scrollY;
+
+    const updateLogoVisibility = () => {
+      const currentY = window.scrollY;
+      const deltaY = currentY - lastScrollYRef.current;
+
+      if (currentY <= 16) {
+        setIsMobileLogoHidden(false);
+      } else if (deltaY > 4) {
+        setIsMobileLogoHidden(true);
+      } else if (deltaY < -4) {
+        setIsMobileLogoHidden(false);
+      }
+
+      lastScrollYRef.current = currentY;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateLogoVisibility);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [isMobileViewport]);
 
   useEffect(() => {
     if (!isHeaderMenuOpen) return;
@@ -621,7 +661,13 @@ export default function HomeClient({
         {/* ================= HEADER ================= */}
         <header className="fixed top-0 left-0 w-full z-50 ">
           <div className="p-3 relative flex items-center justify-between gap-4">
-            <div className="text-2xl font-bold tracking-tight">
+            <div
+              className={`text-2xl font-bold tracking-tight transition-transform duration-200 ease-out md:translate-y-0 ${
+                isMobileLogoHidden
+                  ? "-translate-y-20 pointer-events-none"
+                  : "translate-y-0"
+              }`}
+            >
               <a
                 href="#"
                 onClick={(e) => {
@@ -644,7 +690,13 @@ export default function HomeClient({
                 Admin Demo
               </Link>
 
-              <div className="flex rounded-full bg-brand-primary p-1 shadow-xl">
+              <div
+                className={`flex rounded-full bg-brand-primary p-1 shadow-xl transition-transform duration-200 ease-out md:translate-y-0 ${
+                  isMobileLogoHidden
+                    ? "-translate-y-20 pointer-events-none"
+                    : "translate-y-0"
+                }`}
+              >
                 <Link
                   href={englishHref}
                   className={`px-3 py-1 text-xs font-semibold rounded-full transition
@@ -847,7 +899,7 @@ export default function HomeClient({
             </div>
 
             <div className="about-card self-end bg-brand-primary text-white shadow-lg rounded-2xl p-5 pb-10 pt-10 md:pt-12 md:pb-12 md:p-12">
-              <div className="mb-3 w-fit rounded-md border border-white/20 bg-white/5 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-white">
+              <div className="mb-5 md:mb-3 w-fit rounded-md border border-white/20 bg-white/5 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-white">
                 {isSV ? "Om Oss" : "About Us"}
               </div>
               <h3 className="text-2xl md:text-3xl font-light mb-5 tracking-tight">
@@ -864,7 +916,7 @@ export default function HomeClient({
         {/* ================= MENU ================= */}
         <section className="section-menu min-h-screen flex items-center px-5 md:px-10 py-16 md:py-20 bg-brand-backgroundGray">
           <div className="w-full max-w-6xl mx-auto">
-            <div className="mx-auto mb-2 w-fit rounded-md border border-[#e1e0dd] bg-white/80 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-brand-primary">
+            <div className="mx-auto mb-5 md:mb-2 w-fit rounded-md border border-[#e1e0dd] bg-white/80 px-4 py-1 text-md font-semibold tracking-[-0.2px] text-brand-primary">
               {isSV ? "Vår Meny" : "Our Menu"}
             </div>
             <h2
@@ -1046,7 +1098,7 @@ export default function HomeClient({
               />
               <p
                 key={`event-title-${activeEventsSlide}`}
-                className="max-w-md self-center md:self-start text-center md:text-left text-xl font-light text-brand-primary animate-[fadeIn_0.35s_ease-out]"
+                className="max-w-md min-h-[3.5rem] md:min-h-0 self-center md:self-start text-center md:text-left text-xl font-light text-brand-primary animate-[fadeIn_0.35s_ease-out]"
               >
                 {stripHtml(activeEventTitle) || (isSV ? "Kommande liveevents" : "Upcoming live events")}
               </p>
