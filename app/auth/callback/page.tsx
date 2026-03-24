@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { isAllowedAdminEmail, upsertAdminUser } from "@/lib/auth/admin";
 import { supabase } from "@/lib/supabase/client";
 import { clearGuestMode } from "@/lib/auth/guest";
@@ -53,8 +54,10 @@ export default function AuthCallbackPage() {
 
   return (
     <Providers>
-      <div className="min-h-svh flex items-center justify-center bg-background text-sm text-muted-foreground">
-        Signing you in…
+      <div className="min-h-svh flex items-center justify-center bg-background px-6">
+        <div className="flex flex-row items-center gap-3 text-center text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /><span>Signing you in…</span>
+        </div>
       </div>
     </Providers>
   );
