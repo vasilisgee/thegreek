@@ -1053,9 +1053,9 @@ export default function HomeClient({
                               </div>
 
                               <div className="p-4 space-y-3">
-                                <h4 className="text-lg font-semibold tracking-tight">
+                                <h3 className="text-lg font-semibold tracking-tight">
                                   {itemTitle}
-                                </h4>
+                                </h3>
                                 <p className="text-md text-brand-primary/85 leading-relaxed">
                                   {itemDescription}
                                 </p>
@@ -1184,7 +1184,8 @@ export default function HomeClient({
                           alt={slideAlt}
                           fill
                           sizes="100vw"
-                          className="object-cover"
+                          className="object-cover cursor-grab active:cursor-grabbing select-none"
+                          draggable={false}
                           priority={i === 0}
                         />
                       </div>
@@ -1196,17 +1197,16 @@ export default function HomeClient({
               {sliderSlides.length > 1 && (
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
                   {sliderSlides.map((_, index) => (
-                    <button
+                    <span
                       key={`events-dot-${index}`}
-                      type="button"
-                      onClick={() => eventsEmblaApi?.scrollTo(index)}
-                      className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                      aria-hidden="true"
+                      className={`h-2.5 rounded-full transition-all ${
                         activeEventsSlide === index
                           ? "w-6 bg-white"
-                          : "w-2.5 bg-white/50 hover:bg-white/80"
+                          : "w-2.5 bg-white/50"
                       }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
+                    >
+                    </span>
                   ))}
                 </div>
               )}
@@ -1472,7 +1472,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg text-white">Sofia Lindgren</h4>
+                      <h3 className="font-semibold text-lg text-white">Sofia Lindgren</h3>
                       <p className="text-sm text-white/70">3 weeks ago</p>
                     </div>
                   </div>
@@ -1499,7 +1499,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg text-white">Marcus Andreou</h4>
+                      <h3 className="font-semibold text-lg text-white">Marcus Andreou</h3>
                       <p className="text-sm text-white/70">1 month ago</p>
                     </div>
                   </div>
@@ -1526,7 +1526,7 @@ export default function HomeClient({
                       />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg text-white">Elin Karlsen</h4>
+                      <h3 className="font-semibold text-lg text-white">Elin Karlsen</h3>
                       <p className="text-sm text-white/70">5 months ago</p>
                     </div>
                   </div>
