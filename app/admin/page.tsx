@@ -7,6 +7,9 @@ import { TbPhotoEdit } from "react-icons/tb";
 import { LuTextSearch } from "react-icons/lu";
 import { BiPaint } from "react-icons/bi";
 import { ChevronRight } from "lucide-react";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { RiSeoLine } from "react-icons/ri";
+import { HiOutlineColorSwatch } from "react-icons/hi";
 
 import { supabase } from "@/lib/supabase/client";
 import { formatShortDate } from "@/lib/format-date";
@@ -223,7 +226,7 @@ export default function AdminDashboardPage() {
             >
               <div className="flex items-center gap-4 px-5 py-4">
                 <div className="h-10 w-10 rounded-xl bg-background border border-border flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
-                  <BiPaint className="h-5 w-5" />
+                  <IoFastFoodOutline className="h-5 w-5" />
                 </div>
                 <div className="relative flex-1 text-left">
                   <div className="text-md font-semibold transition-transform duration-200 group-hover:-translate-y-2.5">Manage restaurant menu</div>
@@ -248,7 +251,7 @@ export default function AdminDashboardPage() {
             >
               <div className="flex items-center gap-4 px-5 py-4">
                 <div className="h-10 w-10 rounded-xl bg-background border border-border flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
-                  <BiPaint className="h-5 w-5" />
+                  <RiSeoLine className="h-5 w-5" />
                 </div>
                 <div className="relative flex-1 text-left">
                   <div className="text-md font-semibold transition-transform duration-200 group-hover:-translate-y-2.5">Edit SEO options</div>
@@ -273,7 +276,7 @@ export default function AdminDashboardPage() {
             >
               <div className="flex items-center gap-4 px-5 py-4">
                 <div className="h-10 w-10 rounded-xl bg-background border border-border flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
-                  <BiPaint className="h-5 w-5" />
+                  <HiOutlineColorSwatch className="h-5 w-5" />
                 </div>
                 <div className="relative flex-1 text-left">
                   <div className="text-md font-semibold transition-transform duration-200 group-hover:-translate-y-2.5">Change appearance settings</div>

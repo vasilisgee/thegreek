@@ -49,7 +49,7 @@ function LoginPageContent() {
       </div>
       <div className="flex w-full max-w-sm flex-col gap-6">
         <a href="/" className="inline-block m-auto">
-          <strong className="font-bold w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tighter bg-primary text-secondary">
+          <strong className="font-black w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tight border shadow-sm bg-muted antialiased ">
             Admin Panel
           </strong>
         </a>

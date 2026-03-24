@@ -106,7 +106,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         {/* MAIN */}
         <div className="flex-1 flex flex-col">
           {/* TOP BAR */}
-          <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-background">
+          <header className="h-18 flex items-center justify-between px-6 border-b border-border bg-background">
             <div>
               <h1 className="text-lg font-semibold text-muted-foreground tracking-tight">
                 {pageMeta.title}

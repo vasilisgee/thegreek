@@ -376,7 +376,7 @@ export default function AdminCataloguePage() {
                               className="mt-0! h-7 w-7"
                               aria-label="Edit category title"
                             >
-                              <TbPencil className="h-4 w-4 mr-2" />
+                              <TbPencil className="h-4 w-4" />
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent align="end" className="w-80">
