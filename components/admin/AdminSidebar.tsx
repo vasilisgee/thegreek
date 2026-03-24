@@ -20,21 +20,17 @@ export function AdminSidebar({ host, onNavigate }: Props) {
     <div className="flex h-auto w-full md:h-full flex-col bg-sidebar">
       {/* BRAND */}
       <div className="h-16 flex items-center px-6 border-b border-border">
-        <strong className="font-extrabold bg-brand-primary text-white px-2 py-1 rounded-lg text-lg pointer-events-none">
-          theGreek
-        </strong>
-        <span className="ml-2 text-sm font-semibold text-muted-foreground">
-          Admin
-        </span>
+        <strong className="font-bold w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tighter bg-primary text-secondary">
+            Admin Panel
+          </strong>
       </div>
 
       {/* NAV */}
       <nav className="flex-1 px-4 py-6 space-y-6 text-sm">
         <div>
-          <p className="px-3 mb-4 text-xs font-semibold text-muted-foreground/80">
+          <p className="px-3 mb-4 text-xs font-semibold text-muted-foreground/80 truncate">
             {host}
           </p>
-
           <div className="space-y-1">
             <NavItem
               href="/admin"

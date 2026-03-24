@@ -49,8 +49,8 @@ function LoginPageContent() {
       </div>
       <div className="flex w-full max-w-sm flex-col gap-6">
         <a href="/" className="inline-block m-auto">
-          <strong className="font-extrabold w-auto bg-brand-primary text-white px-2 py-2 rounded-lg text-lg">
-            theGreek
+          <strong className="font-bold w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tighter bg-primary text-secondary">
+            Admin Panel
           </strong>
         </a>
         <LoginForm />
