@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { TbGhost3 } from "react-icons/tb";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { useIsGuest } from "@/lib/auth/guest";
+import { revalidatePublicSite } from "@/lib/revalidate-public";
 
 const SETTINGS_ID = "00000000-0000-0000-0000-000000000001";
 const BUCKET = "site-assets";
@@ -166,9 +167,12 @@ export function useWebsiteBasics() {
       meta_image: metaImageUrl,
     }));
     setMetaImageFile(null);
+    const didRevalidate = await revalidatePublicSite();
 
     toast("Settings saved", {
-      description: "Your changes were saved successfully.",
+      description: didRevalidate
+        ? "Your changes were saved successfully."
+        : "Saved, but the public page may take up to a minute to refresh.",
       icon: <FaRegFloppyDisk className="h-5 w-5" />,
     });
   }

@@ -16,6 +16,7 @@ import {
   Facebook,
   Github,
   Instagram,
+  Loader2,
   Mail,
   MapPin,
   Music2,
@@ -135,6 +136,20 @@ type HomeClientProps = {
   initialActiveMenuItems: CatalogueItem[];
 };
 
+function buildMenuItemsCache(
+  categories: CatalogueCategorySummary[],
+  items: CatalogueItem[],
+) {
+  const firstCategoryId = categories[0]?.id;
+  if (!firstCategoryId || items.length === 0) {
+    return {};
+  }
+
+  return {
+    [firstCategoryId]: items,
+  };
+}
+
 function toPublicUrl(path: string | null) {
   if (!path) return null;
   if (path.startsWith("http")) return path;
@@ -185,24 +200,30 @@ export default function HomeClient({
     initialActiveMenuItems,
   );
   const [isMenuItemsLoading, setIsMenuItemsLoading] = useState(false);
+  const [isMenuItemsFetchingFresh, setIsMenuItemsFetchingFresh] = useState(false);
   const [isMenuTabTransitioning, setIsMenuTabTransitioning] = useState(false);
   const [menuAnimateIn, setMenuAnimateIn] = useState(
     initialActiveMenuItems.length > 0,
   );
-  const menuItemsCacheRef = useRef<Record<string, CatalogueItem[]>>({});
-  const menuCacheInitializedRef = useRef(false);
-  if (
-    !menuCacheInitializedRef.current &&
-    initialCatalogueCategories.length > 0 &&
-    initialActiveMenuItems.length > 0
-  ) {
-    menuItemsCacheRef.current[initialCatalogueCategories[0].id] =
-      initialActiveMenuItems;
-    menuCacheInitializedRef.current = true;
-  }
+  const menuItemsCacheRef = useRef<Record<string, CatalogueItem[]>>(
+    buildMenuItemsCache(initialCatalogueCategories, initialActiveMenuItems),
+  );
   const menuTransitionTimeoutRef = useRef<number | null>(null);
   const [activeMenuTab, setActiveMenuTab] = useState(0);
 
+  useEffect(() => {
+    menuItemsCacheRef.current = buildMenuItemsCache(
+      initialCatalogueCategories,
+      initialActiveMenuItems,
+    );
+    setCatalogueCategories(initialCatalogueCategories);
+    setActiveMenuItems(initialActiveMenuItems);
+    setActiveMenuTab(0);
+    setIsMenuItemsLoading(false);
+    setIsMenuItemsFetchingFresh(false);
+    setIsMenuTabTransitioning(false);
+    setMenuAnimateIn(initialActiveMenuItems.length > 0);
+  }, [initialCatalogueCategories, initialActiveMenuItems]);
 
   useEffect(() => {
     if (initialCatalogueCategories.length > 0) return;
@@ -475,6 +496,7 @@ export default function HomeClient({
     if (!activeCategory) {
       setActiveMenuItems([]);
       setIsMenuItemsLoading(false);
+      setIsMenuItemsFetchingFresh(false);
       setIsMenuTabTransitioning(false);
       setMenuAnimateIn(false);
       return;
@@ -487,6 +509,7 @@ export default function HomeClient({
 
     const cachedItems = menuItemsCacheRef.current[activeCategory.id];
     if (cachedItems) {
+      setIsMenuItemsFetchingFresh(false);
       if (cachedItems === activeMenuItems && menuAnimateIn) {
         setIsMenuItemsLoading(false);
         setIsMenuTabTransitioning(false);
@@ -507,6 +530,7 @@ export default function HomeClient({
 
     async function loadCategoryItems() {
       setIsMenuItemsLoading(true);
+      setIsMenuItemsFetchingFresh(true);
 
       try {
         const response = await fetch(
@@ -538,7 +562,9 @@ export default function HomeClient({
         console.error(error);
         setActiveMenuItems([]);
       }
+      if (isCancelled) return;
       setIsMenuItemsLoading(false);
+      setIsMenuItemsFetchingFresh(false);
 
       window.requestAnimationFrame(() => {
         if (!isCancelled) {
@@ -952,105 +978,121 @@ export default function HomeClient({
                     </div>
                   </div>
 
-                  {activeMenuItems.length > 0 ? (
-                    <div
-                      className={`relative transition-opacity duration-1000 ease-out ${
-                        isMenuTabTransitioning || !menuAnimateIn
-                          ? "opacity-0"
-                          : "opacity-100"
-                      }`}
-                    >
-                      <div className="overflow-hidden px-3 py-4" ref={menuEmblaRef}>
-                        <div
-                          className={`flex ${
-                            canScrollMenuPrev || canScrollMenuNext
-                              ? "-ml-3"
-                              : "justify-center gap-3"
-                          }`}
-                        >
-                          {activeMenuItems.map((item, itemIndex) => {
-                        const itemTitle =
-                          item.title[lang as CatalogueLanguage] ||
-                          item.title.en ||
-                          item.title.sv ||
-                          `${isSV ? "Rätt" : "Item"} ${itemIndex + 1}`;
-                        const itemDescription =
-                          item.description[lang as CatalogueLanguage] ||
-                          item.description.en ||
-                          item.description.sv ||
-                          "";
-                        const itemTags = item.tags[lang as CatalogueLanguage];
-
-                        return (
+                  <div
+                    className={`relative ${
+                      isMenuItemsFetchingFresh && activeMenuItems.length === 0
+                        ? "min-h-[360px]"
+                        : ""
+                    }`}
+                  >
+                    {activeMenuItems.length > 0 ? (
+                      <div
+                        className={`relative transition-opacity duration-1000 ease-out ${
+                          isMenuTabTransitioning || !menuAnimateIn
+                            ? "opacity-0"
+                            : "opacity-100"
+                        }`}
+                      >
+                        <div className="overflow-hidden px-3 py-4" ref={menuEmblaRef}>
                           <div
-                            key={item.id}
-                            className={`min-w-0 ${
+                            className={`flex ${
                               canScrollMenuPrev || canScrollMenuNext
-                                ? "pl-3"
-                                : ""
-                            } flex-[0_0_82%] sm:flex-[0_0_46%] lg:flex-[0_0_31%] xl:flex-[0_0_22%]`}
+                                ? "-ml-3"
+                                : "justify-center gap-3"
+                            }`}
                           >
-                            <article className="rounded-2xl overflow-hidden bg-white text-brand-primary shadow-md h-full md:min-h-[360px] transition-transform duration-500 ease-out hover:scale-[1.02]">
-                            <div className="h-52 bg-brand-backgroundGray relative overflow-hidden">
-                              {item.image ? (
-                                <Image
-                                  src={toPublicUrl(item.image) ?? ""}
-                                  alt={itemTitle}
-                                  fill
-                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                  className="object-cover"
-                                />
-                              ) : (
-                                <div className="w-full h-full flex items-center justify-center text-brand-primary/70">
-                                  <UtensilsCrossed className="h-10 w-10" />
-                                </div>
-                              )}
-                              {itemTags.length > 0 && (
-                                <div className="absolute bottom-3 left-3 z-10 flex flex-wrap gap-2">
-                                  {itemTags.map((tag) => (
-                                    <span
-                                      key={`${item.id}-${tag}`}
-                                      className="px-2 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur-sm border border-white/50 text-brand-primary"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
+                            {activeMenuItems.map((item, itemIndex) => {
+                          const itemTitle =
+                            item.title[lang as CatalogueLanguage] ||
+                            item.title.en ||
+                            item.title.sv ||
+                            `${isSV ? "Rätt" : "Item"} ${itemIndex + 1}`;
+                          const itemDescription =
+                            item.description[lang as CatalogueLanguage] ||
+                            item.description.en ||
+                            item.description.sv ||
+                            "";
+                          const itemTags = item.tags[lang as CatalogueLanguage];
 
-                            <div className="p-4 space-y-3">
-                              <h4 className="text-lg font-semibold tracking-tight">
-                                {itemTitle}
-                              </h4>
-                              <p className="text-md text-brand-primary/85 leading-relaxed">
-                                {itemDescription}
-                              </p>
+                          return (
+                            <div
+                              key={item.id}
+                              className={`min-w-0 ${
+                                canScrollMenuPrev || canScrollMenuNext
+                                  ? "pl-3"
+                                  : ""
+                              } flex-[0_0_82%] sm:flex-[0_0_46%] lg:flex-[0_0_31%] xl:flex-[0_0_22%]`}
+                            >
+                              <article className="rounded-2xl overflow-hidden bg-white text-brand-primary shadow-md h-full md:min-h-[360px] transition-transform duration-500 ease-out hover:scale-[1.02]">
+                              <div className="h-52 bg-brand-backgroundGray relative overflow-hidden">
+                                {item.image ? (
+                                  <Image
+                                    src={toPublicUrl(item.image) ?? ""}
+                                    alt={itemTitle}
+                                    fill
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center text-brand-primary/70">
+                                    <UtensilsCrossed className="h-10 w-10" />
+                                  </div>
+                                )}
+                                {itemTags.length > 0 && (
+                                  <div className="absolute bottom-3 left-3 z-10 flex flex-wrap gap-2">
+                                    {itemTags.map((tag) => (
+                                      <span
+                                        key={`${item.id}-${tag}`}
+                                        className="px-2 py-1 rounded-full text-xs font-semibold bg-white/90 backdrop-blur-sm border border-white/50 text-brand-primary"
+                                      >
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="p-4 space-y-3">
+                                <h4 className="text-lg font-semibold tracking-tight">
+                                  {itemTitle}
+                                </h4>
+                                <p className="text-md text-brand-primary/85 leading-relaxed">
+                                  {itemDescription}
+                                </p>
+                              </div>
+                              </article>
                             </div>
-                            </article>
+                          );
+                            })}
                           </div>
-                        );
-                          })}
+                        </div>
+                        <div
+                          className={`pointer-events-none absolute inset-y-4 left-0 z-10 w-6 md:w-8 bg-gradient-to-r from-[#F5F3F0] to-transparent transition-opacity duration-300 ${
+                            canScrollMenuPrev ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                        <div
+                          className={`pointer-events-none absolute inset-y-4 right-0 z-10 w-6 md:w-8 bg-gradient-to-l from-[#F5F3F0] to-transparent transition-opacity duration-300 ${
+                            canScrollMenuNext ? "opacity-100" : "opacity-0"
+                          }`}
+                        />
+                      </div>
+                    ) : !isMenuItemsLoading ? (
+                      <div className="rounded-xl border border-dashed border-[#E3E1DA] bg-white/70 p-6 text-center text-sm text-muted-foreground">
+                        {isSV
+                          ? "Den här kategorin har inga rätter ännu."
+                          : "This category has no items yet."}
+                      </div>
+                    ) : null}
+
+                    {isMenuItemsFetchingFresh ? (
+                      <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-brand-primary shadow-sm backdrop-blur-sm">
+                          <Loader2 className="h-5 w-5 animate-spin" />
                         </div>
                       </div>
-                      <div
-                        className={`pointer-events-none absolute inset-y-4 left-0 z-10 w-6 md:w-8 bg-gradient-to-r from-[#F5F3F0] to-transparent transition-opacity duration-300 ${
-                          canScrollMenuPrev ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                      <div
-                        className={`pointer-events-none absolute inset-y-4 right-0 z-10 w-6 md:w-8 bg-gradient-to-l from-[#F5F3F0] to-transparent transition-opacity duration-300 ${
-                          canScrollMenuNext ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                    </div>
-                  ) : !isMenuItemsLoading ? (
-                    <div className="rounded-xl border border-dashed border-[#E3E1DA] bg-white/70 p-6 text-center text-sm text-muted-foreground">
-                      {isSV
-                        ? "Den här kategorin har inga rätter ännu."
-                        : "This category has no items yet."}
-                    </div>
-                  ) : null}
+                    ) : null}
+                  </div>
 
                   {(canScrollMenuPrev || canScrollMenuNext) && (
                     <div className="hidden md:flex absolute top-full left-1/2 -translate-x-1/2 mt-4 z-20 items-center justify-center gap-2">

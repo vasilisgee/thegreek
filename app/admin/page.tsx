@@ -157,7 +157,7 @@ export default function AdminDashboardPage() {
                   <div className="text-md font-semibold transition-transform duration-200 group-hover:-translate-y-2.5">Edit website texts</div>
                   <div className="absolute left-0 bottom-[-9px] h-0 overflow-hidden transition-[height] duration-200 group-hover:h-6">
                     <span className="inline-flex h-5 items-center rounded-sm text-[11px] text-muted-foreground">
-                      {lastUpdatedLabel(updates.theme)}
+                      {lastUpdatedLabel(updates.texts)}
                     </span>
                   </div>
                 </div>
@@ -282,7 +282,7 @@ export default function AdminDashboardPage() {
                   <div className="text-md font-semibold transition-transform duration-200 group-hover:-translate-y-2.5">Change appearance settings</div>
                   <div className="absolute left-0 bottom-[-9px] h-0 overflow-hidden transition-[height] duration-200 group-hover:h-6">
                     <span className="inline-flex h-5 items-center rounded-sm text-[11px] text-muted-foreground">
-                      {lastUpdatedLabel(updates.texts)}
+                      {lastUpdatedLabel(updates.theme)}
                     </span>
                   </div>
                 </div>

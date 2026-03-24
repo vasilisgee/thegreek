@@ -3,6 +3,7 @@
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 import { clearGuestMode } from "@/lib/auth/guest";
+import { isAllowedAdminEmail } from "@/lib/auth/admin-emails";
 
 export type AdminProfile = {
   id: string;
@@ -12,17 +13,6 @@ export type AdminProfile = {
   full_name: string;
   avatar_url: string | null;
 };
-
-const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "")
-  .split(",")
-  .map((email) => email.trim().toLowerCase())
-  .filter(Boolean);
-
-export function isAllowedAdminEmail(email?: string | null) {
-  if (!email) return false;
-  if (ADMIN_EMAILS.length === 0) return false;
-  return ADMIN_EMAILS.includes(email.trim().toLowerCase());
-}
 
 export function buildProfileFromUser(user: User): AdminProfile {
   const meta = user.user_metadata ?? {};
@@ -74,3 +64,5 @@ export async function signOutAdmin() {
   clearGuestMode();
   await supabase.auth.signOut();
 }
+
+export { isAllowedAdminEmail };

@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { TbGhost3 } from "react-icons/tb";
 import { FaRegFloppyDisk } from "react-icons/fa6";
 import { useIsGuest } from "@/lib/auth/guest";
+import { revalidatePublicSite } from "@/lib/revalidate-public";
 
 const SETTINGS_ID = "00000000-0000-0000-0000-000000000001";
 const BUCKET = "site-assets";
@@ -332,9 +333,12 @@ export function useCatalogue() {
 
     setCategories(nextCategories);
     setPersistedCategories(payloadCategories);
+    const didRevalidate = await revalidatePublicSite();
 
     toast("Catalogue saved", {
-      description: "Changes saved successfully.",
+      description: didRevalidate
+        ? "Changes saved successfully."
+        : "Saved, but the public page may take up to a minute to refresh.",
       icon: <FaRegFloppyDisk className="h-5 w-5" />,
     });
   }
