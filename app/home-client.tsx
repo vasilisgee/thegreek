@@ -857,10 +857,10 @@ export default function HomeClient({
               </p>
               <button
                 onClick={() => scrollToSection(".section-about", "smooth")}
-                className="hero-cta inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/35 backdrop-blur-xs text-white hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+                className="hero-cta inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-primary transition-all duration-300 hover:bg-white/90 hover:-translate-y-0.5 cursor-pointer"
                 aria-label={isSV ? "Gå till Om oss" : "Go to About section"}
               >
-                <ArrowDown className="h-5 w-5" />
+                <ArrowDown className="size-5" />
               </button>
             </div>
           </div>
