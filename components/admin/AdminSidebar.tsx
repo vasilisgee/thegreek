@@ -9,6 +9,7 @@ import { ImSpoonKnife } from "react-icons/im";
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import { LuPaintbrushVertical } from "react-icons/lu";
 import { LuContactRound } from "react-icons/lu";
+import { LuFolderOpen } from "react-icons/lu";
 
 type Props = {
   host: string;
@@ -28,10 +29,11 @@ export function AdminSidebar({ host, onNavigate }: Props) {
       {/* NAV */}
       <nav className="flex-1 px-4 py-6 space-y-6 text-sm">
         <div>
-          <p className="px-3 mb-4 text-xs font-semibold text-muted-foreground/80 truncate">
-            {host}
-          </p>
-          <div className="space-y-1">
+          <p className="px-3 mb-3 text-xs font-semibold text-muted-foreground/80 flex items-center min-w-0">
+          <LuFolderOpen className="size-3.5 mr-1 shrink-0" />
+          <span className="truncate">{host}</span>
+        </p>
+          <div className="space-y-1 pl-2">
             <NavItem
               href="/admin"
               icon={<HiOutlineRocketLaunch />}

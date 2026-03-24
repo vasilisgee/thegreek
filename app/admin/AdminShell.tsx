@@ -99,7 +99,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <div className="font-sans flex min-h-screen bg-background text-foreground">
         {/* SIDEBAR (desktop) */}
-        <aside className="hidden md:flex w-48 lg:w-60 border-r border-border">
+        <aside className="hidden md:flex w-48 lg:w-68 border-r border-border">
           <AdminSidebar host={host} />
         </aside>
 
