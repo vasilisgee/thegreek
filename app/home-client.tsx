@@ -1476,14 +1476,14 @@ export default function HomeClient({
                       <p className="text-sm text-white/70">3 weeks ago</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex items-center gap-1 text-white/90">
+                  <div className="mb-2 text-lg flex items-center gap-1 text-white/90">
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="text-md md:text-lg leading-relaxed font-light">
+                  <p className="text-md leading-relaxed font-light">
                     Warm service and really flavorful dishes, each one
                     was well-seasoned with generous portions.
                   </p>
@@ -1503,14 +1503,14 @@ export default function HomeClient({
                       <p className="text-sm text-white/70">1 month ago</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex items-center gap-1 text-white/90">
+                  <div className="mb-2 text-lg flex items-center gap-1 text-white/90">
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="text-md md:text-lg leading-relaxed font-light">
+                  <p className="text-md leading-relaxed font-light">
                     Came on a busy Friday and still got friendly, quick service. The grilled meat
                     was tender and the sides tasted fresh.
                   </p>
@@ -1530,14 +1530,14 @@ export default function HomeClient({
                       <p className="text-sm text-white/70">5 months ago</p>
                     </div>
                   </div>
-                  <div className="mb-4 flex items-center gap-1 text-white/90">
+                  <div className="mb-2 flex items-center text-lg gap-1 text-white/90">
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <p className="text-md md:text-lg leading-relaxed font-light">
+                  <p className="text-md leading-relaxed font-light">
                     Cozy atmosphere, clean dining area, and great value for the portion size. We will definitely come back.
                   </p>
                 </article>
