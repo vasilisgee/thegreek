@@ -21,7 +21,7 @@ export function AdminSidebar({ host, onNavigate }: Props) {
     <div className="flex h-auto w-full md:h-full flex-col bg-sidebar">
       {/* BRAND */}
       <div className="h-18 flex items-center px-6 border-b border-border">
-          <strong className="font-black w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tight border shadow-sm bg-muted antialiased cursor-default">
+          <strong className="font-bold w-auto px-2.5 py-1.5 rounded-md text-sm tracking-tight border shadow-sm bg-muted antialiased cursor-default">
             Admin Panel
           </strong>
       </div>
