@@ -11,11 +11,11 @@
 
 A minimal one-page restaurant website template built with **React** and **Next.js App Router**, featuring a custom lightweight **CMS admin dashboard** for managing content, media, translations and appearance.
 
-[View it Live](https://thegreekrestaurant.vercel.app/) • [Admin Panel](https://thegreekrestaurant.vercel.app/login)
+💻[View it Live](https://thegreekrestaurant.vercel.app/)   🎛[Admin Panel](https://thegreekrestaurant.vercel.app/login)
 
 ## Project Purpose
 
-This project demonstrates a lightweight, one-page marketing website with a simple, CMS-like admin panel that allows non-technical users to easily manage website content, media, and translations. The frontend is designed to present all essential information a small business needs in a clean, modern layout. When deployed on Vercel and Supabase free plans, the project can run with zero hosting expenses, making it a practical and cost-effective solution for small businesses.
+This portfolio project demonstrates a lightweight, SEO friendly, one-page marketing website with a simple, CMS-like admin panel that allows non-technical users to easily manage website content. The frontend is designed to present all essential information a small business needs in a clean, modern layout. When deployed on Vercel and Supabase free plans, the project can run with zero hosting expenses, making it a practical and cost-effective solution for small businesses.
 
 
 ## Highlights
