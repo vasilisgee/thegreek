@@ -21,8 +21,6 @@ theGreek is the product that [Gleem](https://github.com/vasilisgee/gleem-landing
 
 The site represents an imaginary Greek restaurant in Stockholm. It is bilingual (EN/SV), fully content-managed through the admin panel, and deployable at zero cost using Vercel and Supabase free plans.
 
----
-
 ## Project Highlights
 
 - One-page marketing website built with Next.js App Router
@@ -33,13 +31,9 @@ The site represents an imaginary Greek restaurant in Stockholm. It is bilingual 
 - Lighthouse-optimized: performance, accessibility and SEO tuned post-launch
 - Deployable at zero cost on Vercel + Supabase free plans
 
----
-
 ## Screenshots
 
 > Coming soon.
-
----
 
 ## Tech Stack
 
@@ -58,8 +52,6 @@ The site represents an imaginary Greek restaurant in Stockholm. It is bilingual 
 - Admin access control via `NEXT_PUBLIC_ADMIN_EMAILS`
 - Idle session logout
 
----
-
 ## Custom Components
 
 Built from scratch on top of shadcn/ui primitives. These represent deliberate component design decisions, not just configuration:
@@ -70,13 +62,9 @@ Built from scratch on top of shadcn/ui primitives. These represent deliberate co
 - **`LanguageTabs`**: Language switcher UI for editing translated content across EN/SV locales
 - **`Menu Catalogue`**: Full admin workflow: create categories and items, edit multilingual content, upload images, drag-and-drop reorder, save and delete
 
----
-
 ## Architecture Notes
 
 Next.js App Router was chosen over Pages Router for its native support of React Server Components, which keeps the public-facing site lightweight while the admin panel runs entirely client-side. Supabase was selected over a custom backend to keep the project deployable on free plans without sacrificing real auth, storage, and a relational database. The admin and public site share the same Next.js project but are cleanly separated by route groups, with middleware handling auth protection on the `/admin` path.
-
----
 
 ## User Roles
 
@@ -86,8 +74,6 @@ Next.js App Router was chosen over Pages Router for its native support of React 
 | **Guest** | Read-only, inputs are empty, save actions disabled |
 
 Guest mode is intentional for portfolio demo purposes. Anyone can explore the full panel without credentials.
-
----
 
 ## Database Schema
 
@@ -138,8 +124,6 @@ http://localhost:3000/auth/callback
 This project is the live product demo for [Gleem](https://github.com/vasilisgee/gleem-landing), an original portfolio concept built to demonstrate a full product delivery workflow. Gleem's landing page links directly to this project as the working example of what their service delivers.
 
 Both projects are part of a larger body of work documented at **[vasilisportfolio.com](https://vasilisportfolio.com)**.
-
----
 
 ## License
 
