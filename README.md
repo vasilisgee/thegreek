@@ -136,8 +136,6 @@ http://localhost:3000/auth/callback
 
 This project is the live product demo for [Gleem](https://github.com/vasilisgee/gleem-landing), an original portfolio concept built to demonstrate a full product delivery workflow. Gleem's landing page links directly to this project as the working example of what their service delivers.
 
-Both projects are part of a larger body of work documented at **[vasilisportfolio.com](https://vasilisportfolio.com)**.
-
 ## License
 
 This project is personal and educational work. Free to explore and reference. Commercial use or redistribution is not permitted without permission.
