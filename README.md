@@ -33,7 +33,20 @@ The site represents an imaginary Greek restaurant in Stockholm. It is bilingual 
 
 ## Screenshots
 
-> Coming soon.
+<p>
+   <img src="public/screenshots/thegreek-landing-1.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-2.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-3.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-4.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-5.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-6.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-7.jpg" width="200" />
+   <img src="public/screenshots/thegreek-landing-8.jpg" width="200" />
+   <img src="public/screenshots/admin-1.png" width="200" />
+   <img src="public/screenshots/admin-2.png" width="200" />
+   <img src="public/screenshots/admin-3.png" width="200" />
+   <img src="public/screenshots/admin-4.png" width="200" />
+</p>
 
 ## Tech Stack
 
