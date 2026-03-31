@@ -88,16 +88,6 @@ Next.js App Router was chosen over Pages Router for its native support of React 
 
 Guest mode is intentional for portfolio demo purposes. Anyone can explore the full panel without credentials.
 
-## Database Schema
-
-| Table | Description |
-|-------|-------------|
-| `site_settings` | Global website text, analytics, maps, hero media (single row) |
-| `media_assets` | Hero media, PDFs, and shared assets (single row) |
-| `thumb_gallery` | About section lightbox images (multiple rows) |
-| `slider_gallery` | Events slider images and titles (multiple rows) |
-| `admin_users` | Admin profile data |
-
 ---
 
 ## Local Setup
